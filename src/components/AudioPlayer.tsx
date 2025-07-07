@@ -121,7 +121,7 @@ const AudioPlayer = ({ audioUrl, title = 'AI Generated Track', className = '' }:
       toast.error('This is a demo preview. Download is not available.');
       return;
     }
-    
+
     // In a real implementation, this would download the file
     toast.success('Download started! (Demo feature)');
   };
@@ -133,26 +133,26 @@ const AudioPlayer = ({ audioUrl, title = 'AI Generated Track', className = '' }:
     return `${minutes}:${seconds.toString().padStart(2, '0')}`;
   };
 
-  const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
+  const progress = duration > 0 ? currentTime / duration * 100 : 0;
 
   // For demo purposes, show a realistic demo track
   const demoTrack = !audioUrl || hasError;
 
   return (
     <div className={`bg-gray-900 rounded-lg p-4 border border-green-500/20 ${className}`}>
-      {audioUrl && (
-        <audio ref={audioRef} src={audioUrl} preload="metadata" />
-      )}
+      {audioUrl &&
+      <audio ref={audioRef} src={audioUrl} preload="metadata" />
+      }
       
       <div className="flex items-center justify-between mb-4">
         <div>
           <h3 className="text-white font-semibold flex items-center gap-2">
             {title}
-            {demoTrack && (
-              <span className="text-xs bg-green-500/20 text-green-400 px-2 py-1 rounded">
+            {demoTrack &&
+            <span className="text-xs bg-green-500/20 text-green-400 px-2 py-1 rounded">
                 DEMO
               </span>
-            )}
+            }
           </h3>
           <p className="text-gray-400 text-sm">
             {demoTrack ? '0:00 / 3:45' : `${formatTime(currentTime)} / ${formatTime(duration)}`}
@@ -175,9 +175,9 @@ const AudioPlayer = ({ audioUrl, title = 'AI Generated Track', className = '' }:
           onValueChange={demoTrack ? undefined : handleSeek}
           max={100}
           step={1}
-          className="w-full" 
-          disabled={demoTrack}
-        />
+          className="w-full"
+          disabled={demoTrack} />
+
       </div>
 
       {/* Controls */}
@@ -186,13 +186,13 @@ const AudioPlayer = ({ audioUrl, title = 'AI Generated Track', className = '' }:
           onClick={togglePlayPause}
           size="lg"
           className="bg-gradient-to-r from-green-500 to-cyan-500 hover:from-green-600 hover:to-cyan-600 text-black font-semibold">
-          {isLoading ? (
-            <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-black"></div>
-          ) : isPlaying ? (
-            <Pause className="w-5 h-5" />
-          ) : (
-            <Play className="w-5 h-5" />
-          )}
+          {isLoading ?
+          <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-black"></div> :
+          isPlaying ?
+          <Pause className="w-5 h-5" /> :
+
+          <Play className="w-5 h-5" />
+          }
         </Button>
 
         <div className="flex items-center space-x-2">
@@ -203,22 +203,22 @@ const AudioPlayer = ({ audioUrl, title = 'AI Generated Track', className = '' }:
               onValueChange={handleVolumeChange}
               max={100}
               step={1}
-              disabled={demoTrack}
-            />
+              disabled={demoTrack} />
+
           </div>
         </div>
       </div>
 
-      {demoTrack && (
-        <div className="mt-4 p-3 bg-green-900/20 border border-green-500/30 rounded-lg">
+      {demoTrack &&
+      <div className="mt-4 p-3 bg-green-900/20 border border-green-500/30 rounded-lg">
           <div className="flex items-center gap-2 text-green-400 text-sm">
             <AlertCircle className="w-4 h-4" />
             <span>This is a demo preview. Real audio generation requires API integration.</span>
           </div>
         </div>
-      )}
-    </div>
-  );
+      }
+    </div>);
+
 };
 
 export default AudioPlayer;

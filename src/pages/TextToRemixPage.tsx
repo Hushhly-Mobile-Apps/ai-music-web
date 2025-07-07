@@ -5,38 +5,66 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Zap, Music, Play, Sparkles } from 'lucide-react';
+import { Zap, Music, Play, Sparkles, Loader2 } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import ProgressBar from '@/components/ProgressBar';
-import AudioPlayer from '@/components/AudioPlayer';
+import RealAudioPlayer from '@/components/RealAudioPlayer';
+import AudioGenerationService, { type AudioGenerationOptions } from '@/services/AudioGenerationService';
 import { toast } from 'sonner';
 
 const TextToRemixPage = () => {
   const [prompt, setPrompt] = useState('');
   const [mood, setMood] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [generatedTrack, setGeneratedTrack] = useState<string | null>(null);
+  const [generatedAudio, setGeneratedAudio] = useState<{
+    blob: Blob;
+    metadata: any;
+    title: string;
+  } | null>(null);
 
   const moods = [
-  { value: 'uplifting', label: 'Uplifting', color: 'bg-yellow-500' },
-  { value: 'dark', label: 'Dark', color: 'bg-purple-500' },
-  { value: 'chill', label: 'Chill', color: 'bg-blue-500' },
-  { value: 'energetic', label: 'Energetic', color: 'bg-red-500' },
-  { value: 'ethereal', label: 'Ethereal', color: 'bg-cyan-500' },
-  { value: 'aggressive', label: 'Aggressive', color: 'bg-orange-500' }];
-
+    { value: 'uplifting', label: 'Uplifting', color: 'bg-yellow-500' },
+    { value: 'dark', label: 'Dark', color: 'bg-purple-500' },
+    { value: 'chill', label: 'Chill', color: 'bg-blue-500' },
+    { value: 'energetic', label: 'Energetic', color: 'bg-red-500' },
+    { value: 'ethereal', label: 'Ethereal', color: 'bg-cyan-500' },
+    { value: 'aggressive', label: 'Aggressive', color: 'bg-orange-500' }
+  ];
 
   const examplePrompts = [
-  "Spacey trance with hard drop and cosmic vibes",
-  "Future bass with anime-inspired melodies",
-  "Dark techno with industrial sounds",
-  "Tropical house with summer festival energy",
-  "Hardstyle with epic orchestral elements",
-  "Progressive house with emotional breakdown"];
-
+    "Spacey trance with hard drop and cosmic vibes",
+    "Future bass with anime-inspired melodies",
+    "Dark techno with industrial sounds",
+    "Tropical house with summer festival energy",
+    "Hardstyle with epic orchestral elements",
+    "Progressive house with emotional breakdown"
+  ];
 
   const handlePromptClick = (examplePrompt: string) => {
     setPrompt(examplePrompt);
+  };
+
+  const detectGenreFromPrompt = (prompt: string): string => {
+    const genreKeywords = {
+      'trance': ['trance', 'uplifting', 'ethereal', 'cosmic'],
+      'future-bass': ['future bass', 'anime', 'melodic', 'emotional'],
+      'techno': ['techno', 'industrial', 'minimal', 'underground'],
+      'progressive-house': ['progressive', 'house', 'breakdown', 'build'],
+      'hardstyle': ['hardstyle', 'hardcore', 'orchestral', 'epic'],
+      'dubstep': ['dubstep', 'bass', 'drop', 'wobble'],
+      'trap': ['trap', 'hip hop', 'urban'],
+      'big-room': ['festival', 'big room', 'anthem']
+    };
+
+    const lowerPrompt = prompt.toLowerCase();
+    
+    for (const [genre, keywords] of Object.entries(genreKeywords)) {
+      if (keywords.some(keyword => lowerPrompt.includes(keyword))) {
+        return genre;
+      }
+    }
+    
+    return 'progressive-house'; // Default genre
   };
 
   const handleGenerate = async () => {
@@ -51,15 +79,77 @@ const TextToRemixPage = () => {
     }
 
     setIsLoading(true);
-    toast.success('Creating your AI EDM track...');
+    setGeneratedAudio(null);
+    toast.success('Creating your AI EDM track with real synthesis...');
 
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      const audioService = new AudioGenerationService();
+      
+      // Auto-detect genre from prompt
+      const detectedGenre = detectGenreFromPrompt(prompt);
+      
+      const options: AudioGenerationOptions = {
+        genre: detectedGenre,
+        mood,
+        prompt,
+        duration: 45 // Longer duration for text-to-audio
+      };
+
+      // Generate real audio
+      const generatedData = await audioService.generateAudio(options);
+      
+      // Create audio blob
+      const audioBlob = audioService.createAudioBlob(generatedData.audioBuffer);
+      
+      // Save to database
+      try {
+        const trackData = {
+          title: `AI Generated - ${detectedGenre} (${mood})`,
+          prompt: prompt,
+          genre: detectedGenre,
+          mood: mood,
+          duration: generatedData.duration,
+          generation_type: 'text-to-audio',
+          parameters: JSON.stringify({
+            detectedGenre,
+            ...generatedData.metadata
+          }),
+          status: 'completed'
+        };
+
+        const { error } = await window.ezsite.apis.tableCreate(25665, trackData);
+        if (error) {
+          console.error('Database save error:', error);
+          toast.error('Generated audio but failed to save to database');
+        }
+      } catch (dbError) {
+        console.error('Database error:', dbError);
+      }
+
+      setGeneratedAudio({
+        blob: audioBlob,
+        metadata: {
+          ...generatedData.metadata,
+          detectedGenre
+        },
+        title: `AI Generated - ${detectedGenre} (${mood})`
+      });
+
+      toast.success(`🎵 Real ${detectedGenre} track generated successfully!`);
+      
+      // Cleanup
+      audioService.dispose();
+      
+    } catch (error) {
+      console.error('Audio generation error:', error);
+      toast.error('Failed to generate audio. Please try again.');
+    } finally {
       setIsLoading(false);
-      // Set as demo mode - the AudioPlayer will handle the demo state
-      setGeneratedTrack('demo-mode');
-      toast.success('Your AI EDM track is ready!');
-    }, 4000);
+    }
+  };
+
+  const handleDownload = () => {
+    toast.success('AI-generated track downloaded successfully!');
   };
 
   return (
@@ -72,14 +162,14 @@ const TextToRemixPage = () => {
             className="max-w-4xl mx-auto"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}>
-
+            transition={{ duration: 0.6 }}
+          >
             <div className="text-center mb-12">
               <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-green-400 to-cyan-400 bg-clip-text text-transparent">
-                Text-to-Remix Studio
+                Real Text-to-Remix Studio
               </h1>
               <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-                Describe your vision and watch our AI create an original EDM track from scratch
+                Describe your vision and watch our AI create real, playable EDM tracks from scratch using advanced synthesis
               </p>
             </div>
 
@@ -96,21 +186,21 @@ const TextToRemixPage = () => {
                       placeholder="Describe your dream EDM track in detail..."
                       value={prompt}
                       onChange={(e) => setPrompt(e.target.value)}
-                      className="min-h-[120px] bg-gray-800 border-gray-700 text-white placeholder:text-gray-400" />
-
+                      className="min-h-[120px] bg-gray-800 border-gray-700 text-white placeholder:text-gray-400"
+                    />
                     <div className="mt-4">
                       <p className="text-sm text-gray-400 mb-2">Try these examples:</p>
                       <div className="flex flex-wrap gap-2">
-                        {examplePrompts.map((example, index) =>
-                        <Badge
-                          key={index}
-                          variant="outline"
-                          className="cursor-pointer border-green-500/50 text-green-400 hover:bg-green-500/20 transition-colors"
-                          onClick={() => handlePromptClick(example)}>
-
+                        {examplePrompts.map((example, index) => (
+                          <Badge
+                            key={index}
+                            variant="outline"
+                            className="cursor-pointer border-green-500/50 text-green-400 hover:bg-green-500/20 transition-colors"
+                            onClick={() => handlePromptClick(example)}
+                          >
                             {example}
                           </Badge>
-                        )}
+                        ))}
                       </div>
                     </div>
                   </CardContent>
@@ -127,14 +217,14 @@ const TextToRemixPage = () => {
                         <SelectValue placeholder="Select the mood for your track" />
                       </SelectTrigger>
                       <SelectContent className="bg-gray-800 border-gray-700">
-                        {moods.map((m) =>
-                        <SelectItem key={m.value} value={m.value} className="text-white">
+                        {moods.map((m) => (
+                          <SelectItem key={m.value} value={m.value} className="text-white">
                             <div className="flex items-center space-x-2">
                               <div className={`w-3 h-3 rounded-full ${m.color}`} />
                               <span>{m.label}</span>
                             </div>
                           </SelectItem>
-                        )}
+                        ))}
                       </SelectContent>
                     </Select>
                   </CardContent>
@@ -143,19 +233,19 @@ const TextToRemixPage = () => {
                 <Button
                   onClick={handleGenerate}
                   disabled={isLoading || !prompt.trim() || !mood}
-                  className="w-full bg-gradient-to-r from-green-500 to-cyan-500 hover:from-green-600 hover:to-cyan-600 text-black font-semibold text-lg py-6 shadow-lg shadow-green-500/25 hover:shadow-green-500/40 transition-all duration-300">
-
-                  {isLoading ?
-                  <>
-                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-black mr-2"></div>
-                      Creating AI Track...
-                    </> :
-
-                  <>
-                      <Play className="w-5 h-5 mr-2" />
-                      Create AI EDM Track
+                  className="w-full bg-gradient-to-r from-green-500 to-cyan-500 hover:from-green-600 hover:to-cyan-600 text-black font-semibold text-lg py-6 shadow-lg shadow-green-500/25 hover:shadow-green-500/40 transition-all duration-300"
+                >
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                      Creating Real AI Track...
                     </>
-                  }
+                  ) : (
+                    <>
+                      <Play className="w-5 h-5 mr-2" />
+                      Create Real AI EDM Track
+                    </>
+                  )}
                 </Button>
               </div>
 
@@ -168,46 +258,61 @@ const TextToRemixPage = () => {
                       <h3 className="text-lg font-semibold text-white">Generated Track</h3>
                     </div>
                     
-                    {isLoading &&
-                    <div className="flex flex-col items-center justify-center py-12">
+                    {isLoading && (
+                      <div className="flex flex-col items-center justify-center py-12">
                         <ProgressBar isLoading={isLoading} />
+                        <p className="text-green-400 mt-4 font-semibold">
+                          🎵 Analyzing prompt and generating real audio...
+                        </p>
+                        <p className="text-gray-400 text-sm mt-2">
+                          Auto-detecting genre and creating synthesis patterns
+                        </p>
                       </div>
-                    }
+                    )}
 
-                    {generatedTrack && !isLoading &&
-                    <div className="space-y-4">
-                        <AudioPlayer
-                        audioUrl={generatedTrack}
-                        title="AI Generated EDM Track" />
-
+                    {generatedAudio && !isLoading && (
+                      <div className="space-y-4">
+                        <RealAudioPlayer
+                          audioBlob={generatedAudio.blob}
+                          title={generatedAudio.title}
+                          metadata={generatedAudio.metadata}
+                          onDownload={handleDownload}
+                        />
                         <div className="text-center">
-                          <p className="text-green-400 font-semibold">🎵 AI Track Created Successfully!</p>
+                          <p className="text-green-400 font-semibold">🎵 Real AI Track Created Successfully!</p>
                           <p className="text-gray-400 text-sm">Your original EDM track is ready to download</p>
+                          {generatedAudio.metadata.detectedGenre && (
+                            <p className="text-cyan-400 text-sm mt-1">
+                              Auto-detected genre: {generatedAudio.metadata.detectedGenre}
+                            </p>
+                          )}
                         </div>
                       </div>
-                    }
+                    )}
 
-                    {!isLoading && !generatedTrack &&
-                    <div className="text-center py-12">
+                    {!isLoading && !generatedAudio && (
+                      <div className="text-center py-12">
                         <div className="w-16 h-16 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4">
                           <Music className="w-8 h-8 text-gray-600" />
                         </div>
                         <p className="text-gray-400">Your AI-generated track will appear here</p>
+                        <p className="text-gray-500 text-sm mt-2">Real synthesis with genre auto-detection</p>
                       </div>
-                    }
+                    )}
                   </CardContent>
                 </Card>
 
                 {/* Advanced Options */}
                 <Card className="bg-gradient-to-br from-green-900/20 to-cyan-900/20 border-green-500/20">
                   <CardContent className="p-6">
-                    <h3 className="text-lg font-semibold text-white mb-3">✨ AI Tips</h3>
+                    <h3 className="text-lg font-semibold text-white mb-3">✨ AI Features</h3>
                     <ul className="space-y-2 text-sm text-gray-300">
-                      <li>• Be specific about instruments and sounds</li>
-                      <li>• Mention tempo, energy levels, and drops</li>
-                      <li>• Reference artists or festivals for style</li>
-                      <li>• Include emotions and atmosphere you want</li>
-                      <li>• Try combining multiple genres</li>
+                      <li>• Automatic genre detection from prompts</li>
+                      <li>• Real-time audio synthesis with Tone.js</li>
+                      <li>• Mood-based musical key selection</li>
+                      <li>• Dynamic pattern generation</li>
+                      <li>• Professional audio export (WAV)</li>
+                      <li>• Database tracking of all generations</li>
                     </ul>
                   </CardContent>
                 </Card>
@@ -216,8 +321,8 @@ const TextToRemixPage = () => {
           </motion.div>
         </div>
       </div>
-    </div>);
-
+    </div>
+  );
 };
 
 export default TextToRemixPage;

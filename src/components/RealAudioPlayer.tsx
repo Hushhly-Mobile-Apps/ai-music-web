@@ -17,9 +17,9 @@ interface RealAudioPlayerProps {
   };
 }
 
-const RealAudioPlayer = ({ 
-  audioBlob, 
-  title = 'Generated Track', 
+const RealAudioPlayer = ({
+  audioBlob,
+  title = 'Generated Track',
   className = '',
   onDownload,
   metadata
@@ -36,7 +36,7 @@ const RealAudioPlayer = ({
     if (audioBlob) {
       const url = URL.createObjectURL(audioBlob);
       setAudioUrl(url);
-      
+
       return () => {
         URL.revokeObjectURL(url);
       };
@@ -123,7 +123,7 @@ const RealAudioPlayer = ({
     const audio = audioRef.current;
     if (!audio || !duration) return;
 
-    const newTime = (value[0] / 100) * duration;
+    const newTime = value[0] / 100 * duration;
     audio.currentTime = newTime;
     setCurrentTime(newTime);
   };
@@ -152,7 +152,7 @@ const RealAudioPlayer = ({
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
-      
+
       toast.success('Download started!');
       onDownload?.();
     } catch (error) {
@@ -168,13 +168,13 @@ const RealAudioPlayer = ({
     return `${minutes}:${seconds.toString().padStart(2, '0')}`;
   };
 
-  const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
+  const progress = duration > 0 ? currentTime / duration * 100 : 0;
 
   return (
     <div className={`bg-gray-900 rounded-lg p-6 border border-green-500/20 ${className}`}>
-      {audioUrl && (
-        <audio ref={audioRef} src={audioUrl} preload="metadata" />
-      )}
+      {audioUrl &&
+      <audio ref={audioRef} src={audioUrl} preload="metadata" />
+      }
       
       <div className="flex items-center justify-between mb-4">
         <div className="flex-1">
@@ -189,13 +189,13 @@ const RealAudioPlayer = ({
             <p className="text-gray-400 text-sm">
               {formatTime(currentTime)} / {formatTime(duration)}
             </p>
-            {metadata && (
-              <div className="flex items-center gap-2 text-xs text-gray-500">
+            {metadata &&
+            <div className="flex items-center gap-2 text-xs text-gray-500">
                 {metadata.bpm && <span>{metadata.bpm} BPM</span>}
                 {metadata.key && <span>• {metadata.key}</span>}
                 {metadata.genre && <span>• {metadata.genre}</span>}
               </div>
-            )}
+            }
           </div>
         </div>
         <Button
@@ -203,8 +203,8 @@ const RealAudioPlayer = ({
           size="sm"
           onClick={handleDownload}
           disabled={!audioBlob}
-          className="border-green-500 text-green-400 hover:bg-green-500/20"
-        >
+          className="border-green-500 text-green-400 hover:bg-green-500/20">
+
           <Download className="w-4 h-4 mr-2" />
           Download
         </Button>
@@ -213,18 +213,18 @@ const RealAudioPlayer = ({
       {/* Waveform Visualization */}
       <div className="mb-4 h-16 bg-gray-800 rounded-lg flex items-center justify-center">
         <div className="flex items-center gap-1">
-          {Array.from({ length: 40 }, (_, i) => (
-            <div
-              key={i}
-              className={`w-1 bg-gradient-to-t from-green-500 to-cyan-500 rounded-full transition-all duration-150 ${
-                isPlaying ? 'animate-pulse' : ''
-              }`}
-              style={{
-                height: `${Math.random() * 40 + 10}px`,
-                opacity: i < (progress / 100) * 40 ? 1 : 0.3
-              }}
-            />
-          ))}
+          {Array.from({ length: 40 }, (_, i) =>
+          <div
+            key={i}
+            className={`w-1 bg-gradient-to-t from-green-500 to-cyan-500 rounded-full transition-all duration-150 ${
+            isPlaying ? 'animate-pulse' : ''}`
+            }
+            style={{
+              height: `${Math.random() * 40 + 10}px`,
+              opacity: i < progress / 100 * 40 ? 1 : 0.3
+            }} />
+
+          )}
         </div>
       </div>
 
@@ -236,8 +236,8 @@ const RealAudioPlayer = ({
           max={100}
           step={0.1}
           className="w-full"
-          disabled={!audioUrl || isLoading}
-        />
+          disabled={!audioUrl || isLoading} />
+
       </div>
 
       {/* Controls */}
@@ -246,15 +246,15 @@ const RealAudioPlayer = ({
           onClick={togglePlayPause}
           size="lg"
           disabled={!audioUrl || isLoading}
-          className="bg-gradient-to-r from-green-500 to-cyan-500 hover:from-green-600 hover:to-cyan-600 text-black font-semibold"
-        >
-          {isLoading ? (
-            <Loader2 className="w-5 h-5 animate-spin" />
-          ) : isPlaying ? (
-            <Pause className="w-5 h-5" />
-          ) : (
-            <Play className="w-5 h-5" />
-          )}
+          className="bg-gradient-to-r from-green-500 to-cyan-500 hover:from-green-600 hover:to-cyan-600 text-black font-semibold">
+
+          {isLoading ?
+          <Loader2 className="w-5 h-5 animate-spin" /> :
+          isPlaying ?
+          <Pause className="w-5 h-5" /> :
+
+          <Play className="w-5 h-5" />
+          }
         </Button>
 
         <div className="flex items-center space-x-2">
@@ -265,32 +265,32 @@ const RealAudioPlayer = ({
               onValueChange={handleVolumeChange}
               max={100}
               step={1}
-              disabled={!audioUrl}
-            />
+              disabled={!audioUrl} />
+
           </div>
         </div>
       </div>
 
-      {metadata && (
-        <div className="mt-4 p-3 bg-gray-800 rounded-lg">
+      {metadata &&
+      <div className="mt-4 p-3 bg-gray-800 rounded-lg">
           <div className="text-sm text-gray-300">
             <div className="flex items-center gap-4 flex-wrap">
-              {metadata.genre && (
-                <span className="bg-green-500/20 text-green-400 px-2 py-1 rounded">
+              {metadata.genre &&
+            <span className="bg-green-500/20 text-green-400 px-2 py-1 rounded">
                   {metadata.genre}
                 </span>
-              )}
-              {metadata.mood && (
-                <span className="bg-cyan-500/20 text-cyan-400 px-2 py-1 rounded">
+            }
+              {metadata.mood &&
+            <span className="bg-cyan-500/20 text-cyan-400 px-2 py-1 rounded">
                   {metadata.mood}
                 </span>
-              )}
+            }
             </div>
           </div>
         </div>
-      )}
-    </div>
-  );
+      }
+    </div>);
+
 };
 
 export default RealAudioPlayer;

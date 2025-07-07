@@ -61,7 +61,7 @@ const DashboardPage = () => {
         throw error;
       }
 
-      setTracks(tracks.filter(track => track.ID !== trackId));
+      setTracks(tracks.filter((track) => track.ID !== trackId));
       toast.success('Track deleted successfully');
     } catch (error) {
       console.error('Error deleting track:', error);
@@ -77,13 +77,13 @@ const DashboardPage = () => {
   const getFilteredTracks = () => {
     switch (activeTab) {
       case 'remix':
-        return tracks.filter(track => track.generation_type === 'remix');
+        return tracks.filter((track) => track.generation_type === 'remix');
       case 'text-to-audio':
-        return tracks.filter(track => track.generation_type === 'text-to-audio');
+        return tracks.filter((track) => track.generation_type === 'text-to-audio');
       case 'completed':
-        return tracks.filter(track => track.status === 'completed');
+        return tracks.filter((track) => track.status === 'completed');
       case 'generating':
-        return tracks.filter(track => track.status === 'generating');
+        return tracks.filter((track) => track.status === 'generating');
       default:
         return tracks;
     }
@@ -141,8 +141,8 @@ const DashboardPage = () => {
             className="max-w-6xl mx-auto"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
+            transition={{ duration: 0.6 }}>
+
             <div className="text-center mb-12">
               <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-green-400 to-cyan-400 bg-clip-text text-transparent">
                 Your Generated Tracks
@@ -158,14 +158,14 @@ const DashboardPage = () => {
                   {tracks.length} Total Tracks
                 </Badge>
                 <Badge variant="outline" className="border-cyan-500 text-cyan-400">
-                  {tracks.filter(t => t.status === 'completed').length} Completed
+                  {tracks.filter((t) => t.status === 'completed').length} Completed
                 </Badge>
               </div>
               <Button
                 onClick={loadTracks}
                 variant="outline"
-                className="border-green-500 text-green-400 hover:bg-green-500/20"
-              >
+                className="border-green-500 text-green-400 hover:bg-green-500/20">
+
                 <RefreshCw className="w-4 h-4 mr-2" />
                 Refresh
               </Button>
@@ -191,28 +191,28 @@ const DashboardPage = () => {
               </TabsList>
 
               <TabsContent value={activeTab} className="space-y-4">
-                {isLoading ? (
-                  <div className="flex items-center justify-center py-12">
+                {isLoading ?
+                <div className="flex items-center justify-center py-12">
                     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green-500"></div>
                     <span className="ml-3 text-gray-400">Loading tracks...</span>
-                  </div>
-                ) : filteredTracks.length === 0 ? (
-                  <Card className="bg-gray-900 border-gray-700">
+                  </div> :
+                filteredTracks.length === 0 ?
+                <Card className="bg-gray-900 border-gray-700">
                     <CardContent className="text-center py-12">
                       <Music className="w-16 h-16 text-gray-600 mx-auto mb-4" />
                       <h3 className="text-xl font-semibold text-gray-400 mb-2">No Tracks Found</h3>
                       <p className="text-gray-500">
-                        {activeTab === 'all' 
-                          ? 'Start generating your first AI EDM track!' 
-                          : `No ${activeTab.replace('-', ' ')} tracks found.`
-                        }
+                        {activeTab === 'all' ?
+                      'Start generating your first AI EDM track!' :
+                      `No ${activeTab.replace('-', ' ')} tracks found.`
+                      }
                       </p>
                     </CardContent>
-                  </Card>
-                ) : (
-                  <div className="grid gap-4">
-                    {filteredTracks.map((track) => (
-                      <Card key={track.ID} className="bg-gray-900 border-gray-700 hover:border-green-500/50 transition-colors">
+                  </Card> :
+
+                <div className="grid gap-4">
+                    {filteredTracks.map((track) =>
+                  <Card key={track.ID} className="bg-gray-900 border-gray-700 hover:border-green-500/50 transition-colors">
                         <CardContent className="p-6">
                           <div className="flex items-center justify-between">
                             <div className="flex-1">
@@ -249,38 +249,38 @@ const DashboardPage = () => {
                             </div>
                             
                             <div className="flex items-center gap-2 ml-4">
-                              {track.status === 'completed' && (
-                                <Button
-                                  size="sm"
-                                  variant="outline"
-                                  onClick={() => handleDownloadTrack(track)}
-                                  className="border-green-500 text-green-400 hover:bg-green-500/20"
-                                >
+                              {track.status === 'completed' &&
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={() => handleDownloadTrack(track)}
+                            className="border-green-500 text-green-400 hover:bg-green-500/20">
+
                                   <Download className="w-4 h-4" />
                                 </Button>
-                              )}
+                          }
                               <Button
-                                size="sm"
-                                variant="outline"
-                                onClick={() => handleDeleteTrack(track.ID)}
-                                className="border-red-500 text-red-400 hover:bg-red-500/20"
-                              >
+                            size="sm"
+                            variant="outline"
+                            onClick={() => handleDeleteTrack(track.ID)}
+                            className="border-red-500 text-red-400 hover:bg-red-500/20">
+
                                 <Trash2 className="w-4 h-4" />
                               </Button>
                             </div>
                           </div>
                         </CardContent>
                       </Card>
-                    ))}
+                  )}
                   </div>
-                )}
+                }
               </TabsContent>
             </Tabs>
           </motion.div>
         </div>
       </div>
-    </div>
-  );
+    </div>);
+
 };
 
 export default DashboardPage;

@@ -18,22 +18,22 @@ const TextToRemixPage = () => {
   const [generatedTrack, setGeneratedTrack] = useState<string | null>(null);
 
   const moods = [
-    { value: 'uplifting', label: 'Uplifting', color: 'bg-yellow-500' },
-    { value: 'dark', label: 'Dark', color: 'bg-purple-500' },
-    { value: 'chill', label: 'Chill', color: 'bg-blue-500' },
-    { value: 'energetic', label: 'Energetic', color: 'bg-red-500' },
-    { value: 'ethereal', label: 'Ethereal', color: 'bg-cyan-500' },
-    { value: 'aggressive', label: 'Aggressive', color: 'bg-orange-500' }
-  ];
+  { value: 'uplifting', label: 'Uplifting', color: 'bg-yellow-500' },
+  { value: 'dark', label: 'Dark', color: 'bg-purple-500' },
+  { value: 'chill', label: 'Chill', color: 'bg-blue-500' },
+  { value: 'energetic', label: 'Energetic', color: 'bg-red-500' },
+  { value: 'ethereal', label: 'Ethereal', color: 'bg-cyan-500' },
+  { value: 'aggressive', label: 'Aggressive', color: 'bg-orange-500' }];
+
 
   const examplePrompts = [
-    "Spacey trance with hard drop and cosmic vibes",
-    "Future bass with anime-inspired melodies",
-    "Dark techno with industrial sounds",
-    "Tropical house with summer festival energy",
-    "Hardstyle with epic orchestral elements",
-    "Progressive house with emotional breakdown"
-  ];
+  "Spacey trance with hard drop and cosmic vibes",
+  "Future bass with anime-inspired melodies",
+  "Dark techno with industrial sounds",
+  "Tropical house with summer festival energy",
+  "Hardstyle with epic orchestral elements",
+  "Progressive house with emotional breakdown"];
+
 
   const handlePromptClick = (examplePrompt: string) => {
     setPrompt(examplePrompt);
@@ -56,7 +56,8 @@ const TextToRemixPage = () => {
     // Simulate API call
     setTimeout(() => {
       setIsLoading(false);
-      setGeneratedTrack('demo-track.mp3');
+      // Set as demo mode - the AudioPlayer will handle the demo state
+      setGeneratedTrack('demo-mode');
       toast.success('Your AI EDM track is ready!');
     }, 4000);
   };
@@ -71,8 +72,8 @@ const TextToRemixPage = () => {
             className="max-w-4xl mx-auto"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
+            transition={{ duration: 0.6 }}>
+
             <div className="text-center mb-12">
               <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-green-400 to-cyan-400 bg-clip-text text-transparent">
                 Text-to-Remix Studio
@@ -95,21 +96,21 @@ const TextToRemixPage = () => {
                       placeholder="Describe your dream EDM track in detail..."
                       value={prompt}
                       onChange={(e) => setPrompt(e.target.value)}
-                      className="min-h-[120px] bg-gray-800 border-gray-700 text-white placeholder:text-gray-400"
-                    />
+                      className="min-h-[120px] bg-gray-800 border-gray-700 text-white placeholder:text-gray-400" />
+
                     <div className="mt-4">
                       <p className="text-sm text-gray-400 mb-2">Try these examples:</p>
                       <div className="flex flex-wrap gap-2">
-                        {examplePrompts.map((example, index) => (
-                          <Badge
-                            key={index}
-                            variant="outline"
-                            className="cursor-pointer border-green-500/50 text-green-400 hover:bg-green-500/20 transition-colors"
-                            onClick={() => handlePromptClick(example)}
-                          >
+                        {examplePrompts.map((example, index) =>
+                        <Badge
+                          key={index}
+                          variant="outline"
+                          className="cursor-pointer border-green-500/50 text-green-400 hover:bg-green-500/20 transition-colors"
+                          onClick={() => handlePromptClick(example)}>
+
                             {example}
                           </Badge>
-                        ))}
+                        )}
                       </div>
                     </div>
                   </CardContent>
@@ -126,14 +127,14 @@ const TextToRemixPage = () => {
                         <SelectValue placeholder="Select the mood for your track" />
                       </SelectTrigger>
                       <SelectContent className="bg-gray-800 border-gray-700">
-                        {moods.map((m) => (
-                          <SelectItem key={m.value} value={m.value} className="text-white">
+                        {moods.map((m) =>
+                        <SelectItem key={m.value} value={m.value} className="text-white">
                             <div className="flex items-center space-x-2">
                               <div className={`w-3 h-3 rounded-full ${m.color}`} />
                               <span>{m.label}</span>
                             </div>
                           </SelectItem>
-                        ))}
+                        )}
                       </SelectContent>
                     </Select>
                   </CardContent>
@@ -142,19 +143,19 @@ const TextToRemixPage = () => {
                 <Button
                   onClick={handleGenerate}
                   disabled={isLoading || !prompt.trim() || !mood}
-                  className="w-full bg-gradient-to-r from-green-500 to-cyan-500 hover:from-green-600 hover:to-cyan-600 text-black font-semibold text-lg py-6 shadow-lg shadow-green-500/25 hover:shadow-green-500/40 transition-all duration-300"
-                >
-                  {isLoading ? (
-                    <>
+                  className="w-full bg-gradient-to-r from-green-500 to-cyan-500 hover:from-green-600 hover:to-cyan-600 text-black font-semibold text-lg py-6 shadow-lg shadow-green-500/25 hover:shadow-green-500/40 transition-all duration-300">
+
+                  {isLoading ?
+                  <>
                       <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-black mr-2"></div>
                       Creating AI Track...
-                    </>
-                  ) : (
-                    <>
+                    </> :
+
+                  <>
                       <Play className="w-5 h-5 mr-2" />
                       Create AI EDM Track
                     </>
-                  )}
+                  }
                 </Button>
               </div>
 
@@ -167,33 +168,33 @@ const TextToRemixPage = () => {
                       <h3 className="text-lg font-semibold text-white">Generated Track</h3>
                     </div>
                     
-                    {isLoading && (
-                      <div className="flex flex-col items-center justify-center py-12">
+                    {isLoading &&
+                    <div className="flex flex-col items-center justify-center py-12">
                         <ProgressBar isLoading={isLoading} />
                       </div>
-                    )}
+                    }
 
-                    {generatedTrack && !isLoading && (
-                      <div className="space-y-4">
+                    {generatedTrack && !isLoading &&
+                    <div className="space-y-4">
                         <AudioPlayer
-                          audioUrl={generatedTrack}
-                          title="AI Generated EDM Track"
-                        />
+                        audioUrl={generatedTrack}
+                        title="AI Generated EDM Track" />
+
                         <div className="text-center">
                           <p className="text-green-400 font-semibold">🎵 AI Track Created Successfully!</p>
                           <p className="text-gray-400 text-sm">Your original EDM track is ready to download</p>
                         </div>
                       </div>
-                    )}
+                    }
 
-                    {!isLoading && !generatedTrack && (
-                      <div className="text-center py-12">
+                    {!isLoading && !generatedTrack &&
+                    <div className="text-center py-12">
                         <div className="w-16 h-16 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4">
                           <Music className="w-8 h-8 text-gray-600" />
                         </div>
                         <p className="text-gray-400">Your AI-generated track will appear here</p>
                       </div>
-                    )}
+                    }
                   </CardContent>
                 </Card>
 
@@ -215,8 +216,8 @@ const TextToRemixPage = () => {
           </motion.div>
         </div>
       </div>
-    </div>
-  );
+    </div>);
+
 };
 
 export default TextToRemixPage;

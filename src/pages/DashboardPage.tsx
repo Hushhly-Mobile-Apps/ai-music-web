@@ -12,37 +12,37 @@ const DashboardPage = () => {
   const [activeTab, setActiveTab] = useState('remixes');
 
   const remixHistory = [
-    {
-      id: 1,
-      title: 'Summer Vibes Remix',
-      originalTitle: 'Summer Vibes',
-      genre: 'Future Bass',
-      createdAt: '2024-01-15',
-      duration: '3:45',
-      status: 'completed',
-      audioUrl: 'demo-track.mp3'
-    },
-    {
-      id: 2,
-      title: 'Neon Dreams EDM',
-      originalTitle: 'Original Upload',
-      genre: 'Progressive House',
-      createdAt: '2024-01-14',
-      duration: '4:12',
-      status: 'completed',
-      audioUrl: 'demo-track.mp3'
-    },
-    {
-      id: 3,
-      title: 'Dark Techno Anthem',
-      originalTitle: 'AI Generated',
-      genre: 'Techno',
-      createdAt: '2024-01-13',
-      duration: '5:23',
-      status: 'completed',
-      audioUrl: 'demo-track.mp3'
-    }
-  ];
+  {
+    id: 1,
+    title: 'Summer Vibes Remix',
+    originalTitle: 'Summer Vibes',
+    genre: 'Future Bass',
+    createdAt: '2024-01-15',
+    duration: '3:45',
+    status: 'completed',
+    audioUrl: 'demo-track.mp3'
+  },
+  {
+    id: 2,
+    title: 'Neon Dreams EDM',
+    originalTitle: 'Original Upload',
+    genre: 'Progressive House',
+    createdAt: '2024-01-14',
+    duration: '4:12',
+    status: 'completed',
+    audioUrl: 'demo-track.mp3'
+  },
+  {
+    id: 3,
+    title: 'Dark Techno Anthem',
+    originalTitle: 'AI Generated',
+    genre: 'Techno',
+    createdAt: '2024-01-13',
+    duration: '5:23',
+    status: 'completed',
+    audioUrl: 'demo-track.mp3'
+  }];
+
 
   const accountStats = {
     totalRemixes: 23,
@@ -62,8 +62,8 @@ const DashboardPage = () => {
             className="max-w-6xl mx-auto"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
+            transition={{ duration: 0.6 }}>
+
             <div className="mb-8">
               <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-green-400 to-cyan-400 bg-clip-text text-transparent">
                 Dashboard
@@ -127,24 +127,24 @@ const DashboardPage = () => {
             {/* Tabs */}
             <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
               <TabsList className="bg-gray-900 border border-green-500/20">
-                <TabsTrigger 
+                <TabsTrigger
                   value="remixes"
-                  className="data-[state=active]:bg-green-500/20 data-[state=active]:text-green-400"
-                >
+                  className="data-[state=active]:bg-green-500/20 data-[state=active]:text-green-400">
+
                   My Remixes
                 </TabsTrigger>
-                <TabsTrigger 
+                <TabsTrigger
                   value="settings"
-                  className="data-[state=active]:bg-green-500/20 data-[state=active]:text-green-400"
-                >
+                  className="data-[state=active]:bg-green-500/20 data-[state=active]:text-green-400">
+
                   Settings
                 </TabsTrigger>
               </TabsList>
 
               <TabsContent value="remixes" className="space-y-6">
                 <div className="grid gap-6">
-                  {remixHistory.map((remix) => (
-                    <Card key={remix.id} className="bg-gray-900 border-green-500/20">
+                  {remixHistory.map((remix) =>
+                  <Card key={remix.id} className="bg-gray-900 border-green-500/20">
                       <CardContent className="p-6">
                         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
                           <div className="flex-1">
@@ -165,33 +165,33 @@ const DashboardPage = () => {
                           
                           <div className="flex items-center space-x-2">
                             <Button
-                              variant="outline"
-                              size="sm"
-                              className="border-green-500/50 text-green-400 hover:bg-green-500/20"
-                            >
+                            variant="outline"
+                            size="sm"
+                            className="border-green-500/50 text-green-400 hover:bg-green-500/20">
+
                               <Play className="w-4 h-4 mr-2" />
                               Preview
                             </Button>
                             <Button
-                              variant="outline"
-                              size="sm"
-                              className="border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/20"
-                            >
+                            variant="outline"
+                            size="sm"
+                            className="border-cyan-500/50 text-cyan-400 hover:bg-cyan-500/20">
+
                               <Download className="w-4 h-4 mr-2" />
                               Download
                             </Button>
                             <Button
-                              variant="outline"
-                              size="sm"
-                              className="border-red-500/50 text-red-400 hover:bg-red-500/20"
-                            >
+                            variant="outline"
+                            size="sm"
+                            className="border-red-500/50 text-red-400 hover:bg-red-500/20">
+
                               <Trash2 className="w-4 h-4" />
                             </Button>
                           </div>
                         </div>
                       </CardContent>
                     </Card>
-                  ))}
+                  )}
                 </div>
               </TabsContent>
 
@@ -218,13 +218,13 @@ const DashboardPage = () => {
                       <div className="flex space-x-4">
                         <Button
                           variant="outline"
-                          className="border-green-500 text-green-400 hover:bg-green-500/20"
-                        >
+                          className="border-green-500 text-green-400 hover:bg-green-500/20">
+
                           Update Profile
                         </Button>
                         <Button
-                          className="bg-gradient-to-r from-green-500 to-cyan-500 hover:from-green-600 hover:to-cyan-600 text-black font-semibold"
-                        >
+                          className="bg-gradient-to-r from-green-500 to-cyan-500 hover:from-green-600 hover:to-cyan-600 text-black font-semibold">
+
                           Upgrade to Pro
                         </Button>
                       </div>
@@ -256,10 +256,10 @@ const DashboardPage = () => {
                         </div>
                         <div className="mt-2">
                           <div className="w-full bg-gray-700 rounded-full h-2">
-                            <div 
+                            <div
                               className="bg-gradient-to-r from-green-500 to-cyan-500 h-2 rounded-full"
-                              style={{ width: `${(accountStats.creditsUsed / 25) * 100}%` }}
-                            />
+                              style={{ width: `${accountStats.creditsUsed / 25 * 100}%` }} />
+
                           </div>
                           <p className="text-xs text-gray-400 mt-1">
                             {accountStats.creditsRemaining} credits remaining
@@ -274,8 +274,8 @@ const DashboardPage = () => {
           </motion.div>
         </div>
       </div>
-    </div>
-  );
+    </div>);
+
 };
 
 export default DashboardPage;

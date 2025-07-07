@@ -7,11 +7,11 @@ interface WaveformAnimationProps {
   bars?: number;
 }
 
-const WaveformAnimation = ({ 
-  className = '', 
-  color = '#00ff8f', 
-  height = 60, 
-  bars = 24 
+const WaveformAnimation = ({
+  className = '',
+  color = '#00ff8f',
+  height = 60,
+  bars = 24
 }: WaveformAnimationProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<number>();
@@ -44,15 +44,15 @@ const WaveformAnimation = ({
 
       for (let i = 0; i < bars; i++) {
         const x = i * barWidth + barWidth / 4;
-        const barHeight = Math.sin(animationTime * 0.02 + i * 0.5) * 20 + 
-                         Math.sin(animationTime * 0.03 + i * 0.3) * 15 + 
-                         Math.sin(animationTime * 0.01 + i * 0.7) * 10;
-        
+        const barHeight = Math.sin(animationTime * 0.02 + i * 0.5) * 20 +
+        Math.sin(animationTime * 0.03 + i * 0.3) * 15 +
+        Math.sin(animationTime * 0.01 + i * 0.7) * 10;
+
         const rectHeight = Math.abs(barHeight) + 2;
         const y = centerY - rectHeight / 2;
 
         ctx.fillRect(x, y, barWidth / 2, rectHeight);
-        
+
         // Add glow effect
         ctx.shadowColor = color;
         ctx.shadowBlur = 10;
@@ -77,9 +77,9 @@ const WaveformAnimation = ({
     <canvas
       ref={canvasRef}
       className={`w-full ${className}`}
-      style={{ height: `${height}px` }}
-    />
-  );
+      style={{ height: `${height}px` }} />);
+
+
 };
 
 export default WaveformAnimation;

@@ -44,10 +44,10 @@ const ProgressBar = ({ isLoading, onComplete }: ProgressBarProps) => {
       </div>
       
       <div className="space-y-2">
-        <Progress 
-          value={progress} 
-          className="h-2"
-        />
+        <Progress
+          value={progress}
+          className="h-2" />
+
         <div className="flex justify-between text-xs text-gray-400">
           <span>Processing...</span>
           <span>{Math.round(progress)}%</span>
@@ -63,8 +63,8 @@ const ProgressBar = ({ isLoading, onComplete }: ProgressBarProps) => {
           This usually takes 30-60 seconds
         </p>
       </div>
-    </div>
-  );
+    </div>);
+
 };
 
 export default ProgressBar;

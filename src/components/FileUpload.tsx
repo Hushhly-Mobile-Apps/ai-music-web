@@ -32,15 +32,15 @@ const FileUpload = ({ onFileSelect, selectedFile, className = '' }: FileUploadPr
 
   return (
     <div className={className}>
-      {!selectedFile ? (
-        <div
-          {...getRootProps()}
-          className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-all duration-200 ${
-            isDragActive
-              ? 'border-green-500 bg-green-500/10'
-              : 'border-gray-600 hover:border-green-500/50 hover:bg-gray-800/50'
-          }`}
-        >
+      {!selectedFile ?
+      <div
+        {...getRootProps()}
+        className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-all duration-200 ${
+        isDragActive ?
+        'border-green-500 bg-green-500/10' :
+        'border-gray-600 hover:border-green-500/50 hover:bg-gray-800/50'}`
+        }>
+
           <input {...getInputProps()} />
           <div className="flex flex-col items-center space-y-4">
             <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-cyan-500 rounded-full flex items-center justify-center">
@@ -55,15 +55,15 @@ const FileUpload = ({ onFileSelect, selectedFile, className = '' }: FileUploadPr
               </p>
             </div>
             <Button
-              variant="outline"
-              className="border-green-500 text-green-400 hover:bg-green-500/20"
-            >
+            variant="outline"
+            className="border-green-500 text-green-400 hover:bg-green-500/20">
+
               Choose File
             </Button>
           </div>
-        </div>
-      ) : (
-        <div className="border border-green-500/20 rounded-lg p-4 bg-gray-900">
+        </div> :
+
+      <div className="border border-green-500/20 rounded-lg p-4 bg-gray-900">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <div className="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center">
@@ -77,18 +77,18 @@ const FileUpload = ({ onFileSelect, selectedFile, className = '' }: FileUploadPr
               </div>
             </div>
             <Button
-              variant="ghost"
-              size="icon"
-              onClick={removeFile}
-              className="text-gray-400 hover:text-white"
-            >
+            variant="ghost"
+            size="icon"
+            onClick={removeFile}
+            className="text-gray-400 hover:text-white">
+
               <X className="w-4 h-4" />
             </Button>
           </div>
         </div>
-      )}
-    </div>
-  );
+      }
+    </div>);
+
 };
 
 export default FileUpload;

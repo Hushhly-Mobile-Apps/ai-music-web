@@ -8,11 +8,11 @@ const Navigation = () => {
   const location = useLocation();
 
   const navItems = [
-    { path: '/', label: 'Home', icon: Home },
-    { path: '/studio', label: 'EDM Studio', icon: Music },
-    { path: '/text-to-remix', label: 'Text-to-Remix', icon: Zap },
-    { path: '/dashboard', label: 'Dashboard', icon: User },
-  ];
+  { path: '/', label: 'Home', icon: Home },
+  { path: '/studio', label: 'EDM Studio', icon: Music },
+  { path: '/text-to-remix', label: 'Text-to-Remix', icon: Zap },
+  { path: '/dashboard', label: 'Dashboard', icon: User }];
+
 
   const isActive = (path: string) => location.pathname === path;
 
@@ -39,15 +39,15 @@ const Navigation = () => {
                   key={item.path}
                   to={item.path}
                   className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-all duration-200 ${
-                    isActive(item.path)
-                      ? 'bg-green-500/20 text-green-400 shadow-lg shadow-green-500/25'
-                      : 'text-gray-300 hover:text-white hover:bg-gray-800/50'
-                  }`}
-                >
+                  isActive(item.path) ?
+                  'bg-green-500/20 text-green-400 shadow-lg shadow-green-500/25' :
+                  'text-gray-300 hover:text-white hover:bg-gray-800/50'}`
+                  }>
+
                   <IconComponent className="w-4 h-4" />
                   <span>{item.label}</span>
-                </Link>
-              );
+                </Link>);
+
             })}
           </div>
 
@@ -59,8 +59,8 @@ const Navigation = () => {
             </div>
             <Button
               variant="outline"
-              className="border-green-500 text-green-400 hover:bg-green-500/20"
-            >
+              className="border-green-500 text-green-400 hover:bg-green-500/20">
+
               Upgrade
             </Button>
           </div>
@@ -70,55 +70,55 @@ const Navigation = () => {
             variant="ghost"
             size="icon"
             className="md:hidden"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            {isMenuOpen ? (
-              <X className="h-6 w-6" />
-            ) : (
-              <Menu className="h-6 w-6" />
-            )}
+            onClick={() => setIsMenuOpen(!isMenuOpen)}>
+
+            {isMenuOpen ?
+            <X className="h-6 w-6" /> :
+
+            <Menu className="h-6 w-6" />
+            }
           </Button>
         </div>
 
         {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="md:hidden py-4 space-y-2">
+        {isMenuOpen &&
+        <div className="md:hidden py-4 space-y-2">
             {navItems.map((item) => {
-              const IconComponent = item.icon;
-              return (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-all duration-200 ${
-                    isActive(item.path)
-                      ? 'bg-green-500/20 text-green-400'
-                      : 'text-gray-300 hover:text-white hover:bg-gray-800/50'
-                  }`}
-                  onClick={() => setIsMenuOpen(false)}
-                >
+            const IconComponent = item.icon;
+            return (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-all duration-200 ${
+                isActive(item.path) ?
+                'bg-green-500/20 text-green-400' :
+                'text-gray-300 hover:text-white hover:bg-gray-800/50'}`
+                }
+                onClick={() => setIsMenuOpen(false)}>
+
                   <IconComponent className="w-4 h-4" />
                   <span>{item.label}</span>
-                </Link>
-              );
-            })}
+                </Link>);
+
+          })}
             <div className="flex items-center justify-between pt-2 border-t border-gray-700">
               <div className="flex items-center space-x-2">
                 <Zap className="w-4 h-4 text-yellow-400" />
                 <span className="text-sm text-gray-300">10 credits</span>
               </div>
               <Button
-                variant="outline"
-                size="sm"
-                className="border-green-500 text-green-400 hover:bg-green-500/20"
-              >
+              variant="outline"
+              size="sm"
+              className="border-green-500 text-green-400 hover:bg-green-500/20">
+
                 Upgrade
               </Button>
             </div>
           </div>
-        )}
+        }
       </div>
-    </nav>
-  );
+    </nav>);
+
 };
 
 export default Navigation;

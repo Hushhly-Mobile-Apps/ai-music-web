@@ -13,27 +13,27 @@ const HomePage = () => {
   };
 
   const features = [
-    {
-      icon: Music,
-      title: 'AI-Powered Remixing',
-      description: 'Transform any track into festival-ready EDM with our advanced AI technology'
-    },
-    {
-      icon: Zap,
-      title: 'Lightning Fast',
-      description: 'Generate professional EDM remixes in under 60 seconds'
-    },
-    {
-      icon: Headphones,
-      title: 'Professional Quality',
-      description: 'Studio-grade audio processing for radio-ready tracks'
-    },
-    {
-      icon: TrendingUp,
-      title: 'Trending Sounds',
-      description: 'Stay ahead with the latest EDM trends and festival vibes'
-    }
-  ];
+  {
+    icon: Music,
+    title: 'AI-Powered Remixing',
+    description: 'Transform any track into festival-ready EDM with our advanced AI technology'
+  },
+  {
+    icon: Zap,
+    title: 'Lightning Fast',
+    description: 'Generate professional EDM remixes in under 60 seconds'
+  },
+  {
+    icon: Headphones,
+    title: 'Professional Quality',
+    description: 'Studio-grade audio processing for radio-ready tracks'
+  },
+  {
+    icon: TrendingUp,
+    title: 'Trending Sounds',
+    description: 'Stay ahead with the latest EDM trends and festival vibes'
+  }];
+
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -49,44 +49,44 @@ const HomePage = () => {
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
-            <motion.h1 
+            <motion.h1
               className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-green-400 to-cyan-400 bg-clip-text text-transparent"
-              {...fadeInUp}
-            >
+              {...fadeInUp}>
+
               Remix Your Songs into
               <br />
               Festival-Ready EDM Tracks
             </motion.h1>
             
-            <motion.p 
+            <motion.p
               className="text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto"
               {...fadeInUp}
-              transition={{ delay: 0.2 }}
-            >
+              transition={{ delay: 0.2 }}>
+
               Transform any audio into professional EDM remixes using cutting-edge AI technology
             </motion.p>
 
-            <motion.div 
+            <motion.div
               className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
               {...fadeInUp}
-              transition={{ delay: 0.4 }}
-            >
+              transition={{ delay: 0.4 }}>
+
               <Link to="/studio">
-                <Button 
-                  size="lg" 
-                  className="bg-gradient-to-r from-green-500 to-cyan-500 hover:from-green-600 hover:to-cyan-600 text-black font-semibold text-lg px-8 py-6 shadow-lg shadow-green-500/25 hover:shadow-green-500/40 transition-all duration-300"
-                >
+                <Button
+                  size="lg"
+                  className="bg-gradient-to-r from-green-500 to-cyan-500 hover:from-green-600 hover:to-cyan-600 text-black font-semibold text-lg px-8 py-6 shadow-lg shadow-green-500/25 hover:shadow-green-500/40 transition-all duration-300">
+
                   <Upload className="w-5 h-5 mr-2" />
                   Upload Your Song
                 </Button>
               </Link>
               
               <Link to="/text-to-remix">
-                <Button 
-                  size="lg" 
+                <Button
+                  size="lg"
                   variant="outline"
-                  className="border-green-500 text-green-400 hover:bg-green-500/20 font-semibold text-lg px-8 py-6 shadow-lg shadow-green-500/10 hover:shadow-green-500/25 transition-all duration-300"
-                >
+                  className="border-green-500 text-green-400 hover:bg-green-500/20 font-semibold text-lg px-8 py-6 shadow-lg shadow-green-500/10 hover:shadow-green-500/25 transition-all duration-300">
+
                   <Zap className="w-5 h-5 mr-2" />
                   Try Text-to-EDM
                 </Button>
@@ -97,8 +97,8 @@ const HomePage = () => {
             <motion.div
               className="max-w-2xl mx-auto"
               {...fadeInUp}
-              transition={{ delay: 0.6 }}
-            >
+              transition={{ delay: 0.6 }}>
+
               <WaveformAnimation height={80} bars={32} />
             </motion.div>
           </div>
@@ -113,8 +113,8 @@ const HomePage = () => {
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
+            transition={{ duration: 0.6 }}>
+
             <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-green-400 to-cyan-400 bg-clip-text text-transparent">
               Why Choose AI Music Web?
             </h2>
@@ -124,22 +124,22 @@ const HomePage = () => {
           </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {features.map((feature, index) => (
-              <motion.div
-                key={index}
-                className="bg-gray-800 rounded-xl p-6 border border-green-500/20 hover:border-green-500/40 transition-all duration-300 hover:bg-gray-800/80"
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-              >
+            {features.map((feature, index) =>
+            <motion.div
+              key={index}
+              className="bg-gray-800 rounded-xl p-6 border border-green-500/20 hover:border-green-500/40 transition-all duration-300 hover:bg-gray-800/80"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}>
+
                 <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-cyan-500 rounded-lg flex items-center justify-center mb-4">
                   <feature.icon className="w-6 h-6 text-black" />
                 </div>
                 <h3 className="text-xl font-semibold mb-2 text-white">{feature.title}</h3>
                 <p className="text-gray-400">{feature.description}</p>
               </motion.div>
-            ))}
+            )}
           </div>
         </div>
       </section>
@@ -152,8 +152,8 @@ const HomePage = () => {
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
+            transition={{ duration: 0.6 }}>
+
             <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-green-400 to-cyan-400 bg-clip-text text-transparent">
               Ready to Create Your First EDM Remix?
             </h2>
@@ -162,10 +162,10 @@ const HomePage = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/studio">
-                <Button 
-                  size="lg" 
-                  className="bg-gradient-to-r from-green-500 to-cyan-500 hover:from-green-600 hover:to-cyan-600 text-black font-semibold text-lg px-8 py-6 shadow-lg shadow-green-500/25 hover:shadow-green-500/40 transition-all duration-300"
-                >
+                <Button
+                  size="lg"
+                  className="bg-gradient-to-r from-green-500 to-cyan-500 hover:from-green-600 hover:to-cyan-600 text-black font-semibold text-lg px-8 py-6 shadow-lg shadow-green-500/25 hover:shadow-green-500/40 transition-all duration-300">
+
                   <Play className="w-5 h-5 mr-2" />
                   Start Remixing Now
                 </Button>
@@ -191,8 +191,8 @@ const HomePage = () => {
           </p>
         </div>
       </footer>
-    </div>
-  );
+    </div>);
+
 };
 
 export default HomePage;

@@ -40,48 +40,48 @@ const EDM_SOUND_BANK = {
   },
   chordProgressions: {
     'progressive-house': [
-      ['vi', 'IV', 'I', 'V'],
-      ['I', 'vi', 'IV', 'V'],
-      ['vi', 'V', 'I', 'IV'],
-      ['I', 'V', 'vi', 'IV']
-    ],
+    ['vi', 'IV', 'I', 'V'],
+    ['I', 'vi', 'IV', 'V'],
+    ['vi', 'V', 'I', 'IV'],
+    ['I', 'V', 'vi', 'IV']],
+
     'future-bass': [
-      ['vi', 'IV', 'I', 'V'],
-      ['I', 'vi', 'ii', 'V'],
-      ['vi', 'ii', 'V', 'I'],
-      ['I', 'V', 'vi', 'iii']
-    ],
+    ['vi', 'IV', 'I', 'V'],
+    ['I', 'vi', 'ii', 'V'],
+    ['vi', 'ii', 'V', 'I'],
+    ['I', 'V', 'vi', 'iii']],
+
     'techno': [
-      ['i', 'iv', 'VI', 'VII'],
-      ['i', 'VI', 'III', 'VII'],
-      ['i', 'v', 'i', 'v'],
-      ['i', 'iv', 'v', 'i']
-    ],
+    ['i', 'iv', 'VI', 'VII'],
+    ['i', 'VI', 'III', 'VII'],
+    ['i', 'v', 'i', 'v'],
+    ['i', 'iv', 'v', 'i']],
+
     'trance': [
-      ['vi', 'IV', 'I', 'V'],
-      ['I', 'vi', 'IV', 'V'],
-      ['vi', 'V', 'I', 'IV'],
-      ['I', 'V', 'vi', 'IV']
-    ],
+    ['vi', 'IV', 'I', 'V'],
+    ['I', 'vi', 'IV', 'V'],
+    ['vi', 'V', 'I', 'IV'],
+    ['I', 'V', 'vi', 'IV']],
+
     'dubstep': [
-      ['i', 'VI', 'III', 'VII'],
-      ['i', 'iv', 'VI', 'v'],
-      ['i', 'v', 'VI', 'iv'],
-      ['i', 'VII', 'VI', 'v']
-    ],
+    ['i', 'VI', 'III', 'VII'],
+    ['i', 'iv', 'VI', 'v'],
+    ['i', 'v', 'VI', 'iv'],
+    ['i', 'VII', 'VI', 'v']],
+
     'hardstyle': [
-      ['i', 'VI', 'III', 'VII'],
-      ['i', 'iv', 'v', 'i'],
-      ['i', 'v', 'VI', 'iv'],
-      ['i', 'VII', 'VI', 'v']
-    ]
+    ['i', 'VI', 'III', 'VII'],
+    ['i', 'iv', 'v', 'i'],
+    ['i', 'v', 'VI', 'iv'],
+    ['i', 'VII', 'VI', 'v']]
+
   }
 };
 
 export class AudioGenerationService {
-  private synths: { [key: string]: Tone.Synth } = {};
-  private drums: { [key: string]: Tone.MembraneSynth } = {};
-  private effects: { [key: string]: any } = {};
+  private synths: {[key: string]: Tone.Synth;} = {};
+  private drums: {[key: string]: Tone.MembraneSynth;} = {};
+  private effects: {[key: string]: any;} = {};
   private isInitialized = false;
   private currentSeed = 0;
 
@@ -139,7 +139,7 @@ export class AudioGenerationService {
     let hash = 0;
     for (let i = 0; i < str.length; i++) {
       const char = str.charCodeAt(i);
-      hash = ((hash << 5) - hash) + char;
+      hash = (hash << 5) - hash + char;
       hash = hash & hash; // Convert to 32-bit integer
     }
     return Math.abs(hash);
@@ -155,7 +155,7 @@ export class AudioGenerationService {
 
     const duration = options.duration || 30;
     this.currentSeed = this.generateSeed(options);
-    
+
     const bpm = this.getBPMForGenre(options.genre);
     const key = this.getKeyForMood(options.mood);
     const uniqueId = `edm_${this.currentSeed}_${Date.now()}`;
@@ -234,19 +234,19 @@ export class AudioGenerationService {
         this.synths.lead.chain(this.effects.distortion, recorder);
         break;
       default:
-        Object.values(this.synths).forEach(synth => {
+        Object.values(this.synths).forEach((synth) => {
           synth.chain(this.effects.reverb, recorder);
         });
     }
 
     // Connect drums
-    Object.values(this.drums).forEach(drum => {
+    Object.values(this.drums).forEach((drum) => {
       drum.connect(recorder);
     });
   }
 
   private getBPMForGenre(genre: string): number {
-    const bpmRanges: { [key: string]: [number, number] } = {
+    const bpmRanges: {[key: string]: [number, number];} = {
       'progressive-house': [124, 134],
       'future-bass': [140, 160],
       'big-room': [126, 132],
@@ -267,8 +267,8 @@ export class AudioGenerationService {
   private getKeyForMood(mood: string): string {
     const keys = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
     const modes = ['major', 'minor', 'dorian', 'phrygian'];
-    
-    const moodKeyMappings: { [key: string]: string[] } = {
+
+    const moodKeyMappings: {[key: string]: string[];} = {
       'uplifting': ['C major', 'G major', 'D major', 'A major'],
       'dark': ['A minor', 'E minor', 'B minor', 'F# minor'],
       'chill': ['F major', 'Bb major', 'Eb major', 'Ab major'],
@@ -293,13 +293,13 @@ export class AudioGenerationService {
 
     // Generate melody based on prompt analysis
     const melody = this.generateMelodyFromPrompt(prompt, mood);
-    
+
     // Generate bass line
     const bassLine = this.generateBassLine(genre, selectedProgression);
-    
+
     // Generate drum pattern
     const drumPattern = this.generateDrumPattern(genre, mood);
-    
+
     // Generate arpeggio
     const arpeggio = this.generateArpeggio(selectedProgression);
 
@@ -327,7 +327,7 @@ export class AudioGenerationService {
 
     // Analyze prompt for keywords
     let selectedPattern = melodyPatterns[mood] || melodyPatterns['uplifting'];
-    
+
     for (const [keyword, pattern] of Object.entries(melodyPatterns)) {
       if (prompt.includes(keyword)) {
         selectedPattern = pattern;
@@ -338,23 +338,23 @@ export class AudioGenerationService {
     // Add variation based on seed
     const variations = this.createMelodyVariations(selectedPattern);
     const variationIndex = Math.floor(this.seededRandom(this.currentSeed + 4) * variations.length);
-    
+
     return variations[variationIndex];
   }
 
   private createMelodyVariations(baseMelody: string[]): string[][] {
     const variations = [baseMelody];
-    
+
     // Octave shift variation
-    variations.push(baseMelody.map(note => {
+    variations.push(baseMelody.map((note) => {
       const noteName = note.slice(0, -1);
       const octave = parseInt(note.slice(-1));
       return `${noteName}${octave + 1}`;
     }));
-    
+
     // Reverse variation
     variations.push([...baseMelody].reverse());
-    
+
     // Skip pattern variation
     const skipPattern = [];
     for (let i = 0; i < baseMelody.length; i += 2) {
@@ -364,7 +364,7 @@ export class AudioGenerationService {
       }
     }
     variations.push(skipPattern);
-    
+
     return variations;
   }
 
@@ -379,23 +379,23 @@ export class AudioGenerationService {
     };
 
     const basePattern = bassPatterns[genre] || bassPatterns['progressive-house'];
-    
+
     // Create variations
     const variations = [
-      basePattern,
-      basePattern.map(note => {
-        const noteName = note.slice(0, -1);
-        const octave = parseInt(note.slice(-1));
-        return `${noteName}${octave - 1}`;
-      }),
-      basePattern.reverse()
-    ];
+    basePattern,
+    basePattern.map((note) => {
+      const noteName = note.slice(0, -1);
+      const octave = parseInt(note.slice(-1));
+      return `${noteName}${octave - 1}`;
+    }),
+    basePattern.reverse()];
+
 
     const variationIndex = Math.floor(this.seededRandom(this.currentSeed + 5) * variations.length);
     return variations[variationIndex];
   }
 
-  private generateDrumPattern(genre: string, mood: string): { [key: string]: string[] } {
+  private generateDrumPattern(genre: string, mood: string): {[key: string]: string[];} {
     const drumPatterns = {
       'progressive-house': {
         kick: ['x', '.', '.', '.', 'x', '.', '.', '.'],
@@ -430,12 +430,12 @@ export class AudioGenerationService {
     };
 
     const basePattern = drumPatterns[genre] || drumPatterns['progressive-house'];
-    
+
     // Modify pattern based on mood
     if (mood === 'aggressive') {
-      basePattern.kick = basePattern.kick.map(hit => hit === 'x' ? 'x' : (Math.random() < 0.2 ? 'x' : '.'));
+      basePattern.kick = basePattern.kick.map((hit) => hit === 'x' ? 'x' : Math.random() < 0.2 ? 'x' : '.');
     } else if (mood === 'chill') {
-      basePattern.hihat = basePattern.hihat.map(hit => hit === 'x' ? (Math.random() < 0.7 ? 'x' : '.') : '.');
+      basePattern.hihat = basePattern.hihat.map((hit) => hit === 'x' ? Math.random() < 0.7 ? 'x' : '.' : '.');
     }
 
     return basePattern;
@@ -443,11 +443,11 @@ export class AudioGenerationService {
 
   private generateArpeggio(chords: string[]): string[] {
     const arpeggioPatterns = [
-      ['C4', 'E4', 'G4', 'C5', 'G4', 'E4', 'C4', 'E4'],
-      ['C4', 'G4', 'C5', 'E5', 'C5', 'G4', 'E4', 'C4'],
-      ['C4', 'E4', 'G4', 'E4', 'C4', 'G4', 'E4', 'G4'],
-      ['C5', 'G4', 'E4', 'C4', 'E4', 'G4', 'C5', 'G4']
-    ];
+    ['C4', 'E4', 'G4', 'C5', 'G4', 'E4', 'C4', 'E4'],
+    ['C4', 'G4', 'C5', 'E5', 'C5', 'G4', 'E4', 'C4'],
+    ['C4', 'E4', 'G4', 'E4', 'C4', 'G4', 'E4', 'G4'],
+    ['C5', 'G4', 'E4', 'C4', 'E4', 'G4', 'C5', 'G4']];
+
 
     const patternIndex = Math.floor(this.seededRandom(this.currentSeed + 6) * arpeggioPatterns.length);
     return arpeggioPatterns[patternIndex];
@@ -517,7 +517,7 @@ export class AudioGenerationService {
 
     // Schedule stops
     setTimeout(() => {
-      [bassPart, melodyPart, arpPart].forEach(part => {
+      [bassPart, melodyPart, arpPart].forEach((part) => {
         part.stop();
         part.dispose();
       });
@@ -533,9 +533,9 @@ export class AudioGenerationService {
   }
 
   dispose() {
-    Object.values(this.synths).forEach(synth => synth.dispose());
-    Object.values(this.drums).forEach(drum => drum.dispose());
-    Object.values(this.effects).forEach(effect => effect.dispose());
+    Object.values(this.synths).forEach((synth) => synth.dispose());
+    Object.values(this.drums).forEach((drum) => drum.dispose());
+    Object.values(this.effects).forEach((effect) => effect.dispose());
   }
 }
 

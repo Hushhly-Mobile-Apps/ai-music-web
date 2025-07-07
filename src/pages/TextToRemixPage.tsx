@@ -9,8 +9,6 @@ import { Zap, Music, Play, Sparkles, Loader2 } from 'lucide-react';
 import Navigation from '@/components/Navigation';
 import ProgressBar from '@/components/ProgressBar';
 import RealAudioPlayer from '@/components/RealAudioPlayer';
-import AIModelIndicator from '@/components/AIModelIndicator';
-import TrackVariationDisplay from '@/components/TrackVariationDisplay';
 import AudioGenerationService, { type AudioGenerationOptions } from '@/services/AudioGenerationService';
 import { toast } from 'sonner';
 
@@ -34,17 +32,12 @@ const TextToRemixPage = () => {
 
 
   const examplePrompts = [
-    "Spacey trance with hard drop and cosmic vibes",
-    "Future bass with anime-inspired melodies and vocal chops",
-    "Dark techno with industrial sounds and acid basslines",
-    "Tropical house with summer festival energy and steel drums",
-    "Hardstyle with epic orchestral elements and reverse bass",
-    "Progressive house with emotional breakdown and uplifting plucks",
-    "Dubstep with filthy growls and screechy lead synths",
-    "Big room house with festival anthem drops and crowd chants",
-    "Psytrance with twisted arpeggios and psychedelic effects",
-    "Electro house with funky basslines and retro synths"
-  ];
+  "Spacey trance with hard drop and cosmic vibes",
+  "Future bass with anime-inspired melodies",
+  "Dark techno with industrial sounds",
+  "Tropical house with summer festival energy",
+  "Hardstyle with epic orchestral elements",
+  "Progressive house with emotional breakdown"];
 
 
   const handlePromptClick = (examplePrompt: string) => {
@@ -53,16 +46,14 @@ const TextToRemixPage = () => {
 
   const detectGenreFromPrompt = (prompt: string): string => {
     const genreKeywords = {
-      'trance': ['trance', 'uplifting', 'ethereal', 'cosmic', 'psychedelic', 'psytrance'],
-      'future-bass': ['future bass', 'anime', 'melodic', 'emotional', 'vocal chop', 'chops'],
-      'techno': ['techno', 'industrial', 'minimal', 'underground', 'acid'],
-      'progressive-house': ['progressive', 'house', 'breakdown', 'build', 'pluck'],
-      'hardstyle': ['hardstyle', 'hardcore', 'orchestral', 'epic', 'reverse bass'],
-      'dubstep': ['dubstep', 'bass', 'drop', 'wobble', 'growl', 'filthy', 'screechy'],
+      'trance': ['trance', 'uplifting', 'ethereal', 'cosmic'],
+      'future-bass': ['future bass', 'anime', 'melodic', 'emotional'],
+      'techno': ['techno', 'industrial', 'minimal', 'underground'],
+      'progressive-house': ['progressive', 'house', 'breakdown', 'build'],
+      'hardstyle': ['hardstyle', 'hardcore', 'orchestral', 'epic'],
+      'dubstep': ['dubstep', 'bass', 'drop', 'wobble'],
       'trap': ['trap', 'hip hop', 'urban'],
-      'big-room': ['festival', 'big room', 'anthem', 'crowd', 'chant'],
-      'electro': ['electro', 'funky', 'retro'],
-      'deep-house': ['deep', 'soulful', 'groove']
+      'big-room': ['festival', 'big room', 'anthem']
     };
 
     const lowerPrompt = prompt.toLowerCase();
@@ -268,9 +259,8 @@ const TextToRemixPage = () => {
                     </div>
                     
                     {isLoading &&
-                    <div className="flex flex-col items-center justify-center py-12 space-y-4">
+                    <div className="flex flex-col items-center justify-center py-12">
                         <ProgressBar isLoading={isLoading} />
-                        <AIModelIndicator model="AIVA Neural Engine v3.2" isGenerating={true} />
                         <p className="text-green-400 mt-4 font-semibold">
                           🎵 Analyzing prompt and generating real audio...
                         </p>

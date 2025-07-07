@@ -27,26 +27,26 @@ const StudioPage = () => {
   } | null>(null);
 
   const genres = [
-    { value: 'progressive-house', label: 'Progressive House' },
-    { value: 'future-bass', label: 'Future Bass' },
-    { value: 'big-room', label: 'Big Room' },
-    { value: 'techno', label: 'Techno' },
-    { value: 'trance', label: 'Trance' },
-    { value: 'dubstep', label: 'Dubstep' },
-    { value: 'trap', label: 'Trap' },
-    { value: 'hardstyle', label: 'Hardstyle' },
-    { value: 'deep-house', label: 'Deep House' },
-    { value: 'electro', label: 'Electro House' }
-  ];
+  { value: 'progressive-house', label: 'Progressive House' },
+  { value: 'future-bass', label: 'Future Bass' },
+  { value: 'big-room', label: 'Big Room' },
+  { value: 'techno', label: 'Techno' },
+  { value: 'trance', label: 'Trance' },
+  { value: 'dubstep', label: 'Dubstep' },
+  { value: 'trap', label: 'Trap' },
+  { value: 'hardstyle', label: 'Hardstyle' },
+  { value: 'deep-house', label: 'Deep House' },
+  { value: 'electro', label: 'Electro House' }];
+
 
   const moods = [
-    { value: 'uplifting', label: 'Uplifting & Euphoric' },
-    { value: 'dark', label: 'Dark & Mysterious' },
-    { value: 'chill', label: 'Chill & Relaxed' },
-    { value: 'energetic', label: 'High Energy' },
-    { value: 'ethereal', label: 'Ethereal & Dreamy' },
-    { value: 'aggressive', label: 'Aggressive & Intense' }
-  ];
+  { value: 'uplifting', label: 'Uplifting & Euphoric' },
+  { value: 'dark', label: 'Dark & Mysterious' },
+  { value: 'chill', label: 'Chill & Relaxed' },
+  { value: 'energetic', label: 'High Energy' },
+  { value: 'ethereal', label: 'Ethereal & Dreamy' },
+  { value: 'aggressive', label: 'Aggressive & Intense' }];
+
 
 
   const handleFileSelect = (file: File) => {
@@ -187,22 +187,6 @@ const StudioPage = () => {
                         )}
                       </SelectContent>
                     </Select>
-                    
-                    <div className="mt-4">
-                      <h4 className="text-sm font-medium text-gray-300 mb-2">Mood & Vibe</h4>
-                      <Select value={mood} onValueChange={setMood}>
-                        <SelectTrigger className="bg-gray-800 border-gray-700 text-white">
-                          <SelectValue placeholder="Select mood" />
-                        </SelectTrigger>
-                        <SelectContent className="bg-gray-800 border-gray-700">
-                          {moods.map((m) =>
-                          <SelectItem key={m.value} value={m.value} className="text-white">
-                              {m.label}
-                            </SelectItem>
-                          )}
-                        </SelectContent>
-                      </Select>
-                    </div>
                   </CardContent>
                 </Card>
 
@@ -250,14 +234,13 @@ const StudioPage = () => {
                     </div>
                     
                     {isLoading &&
-                    <div className="flex flex-col items-center justify-center py-12 space-y-4">
+                    <div className="flex flex-col items-center justify-center py-12">
                         <ProgressBar isLoading={isLoading} />
-                        <AIModelIndicator model="AIVA Neural Engine v3.2" isGenerating={true} />
                         <p className="text-green-400 mt-4 font-semibold">
-                          🎵 Generating real audio with advanced synthesis...
+                          🎵 Generating real audio with Tone.js synthesis...
                         </p>
                         <p className="text-gray-400 text-sm mt-2">
-                          Creating unique {genre} patterns with {mood} vibes
+                          Creating {genre} patterns and mixing audio layers
                         </p>
                       </div>
                     }
@@ -269,11 +252,6 @@ const StudioPage = () => {
                         title={generatedAudio.title}
                         metadata={generatedAudio.metadata}
                         onDownload={handleDownload} />
-
-                        <TrackVariationDisplay 
-                          metadata={generatedAudio.metadata}
-                          isGenerating={false}
-                        />
 
                         <div className="text-center">
                           <p className="text-green-400 font-semibold">✨ Real Audio Generated Successfully!</p>
@@ -297,14 +275,13 @@ const StudioPage = () => {
                 {/* Tips Card */}
                 <Card className="bg-gradient-to-br from-green-900/20 to-cyan-900/20 border-green-500/20">
                   <CardContent className="p-6">
-                    <h3 className="text-lg font-semibold text-white mb-3">🎵 AIVA Neural Features</h3>
+                    <h3 className="text-lg font-semibold text-white mb-3">🎵 Real Audio Features</h3>
                     <ul className="space-y-2 text-sm text-gray-300">
-                      <li>• Advanced neural audio synthesis</li>
-                      <li>• 10+ EDM subgenres with unique patterns</li>
-                      <li>• Mood-based harmonic variations</li>
-                      <li>• Seeded randomization for unique results</li>
-                      <li>• Professional multitrack arrangement</li>
-                      <li>• Real-time effect processing chain</li>
+                      <li>• Real-time audio synthesis with Tone.js</li>
+                      <li>• Genre-specific patterns and arrangements</li>
+                      <li>• Dynamic BPM and key selection</li>
+                      <li>• Professional audio download (WAV format)</li>
+                      <li>• Database storage of generated tracks</li>
                     </ul>
                   </CardContent>
                 </Card>

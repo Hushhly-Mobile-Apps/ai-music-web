@@ -16,13 +16,13 @@ interface TrackVariationDisplayProps {
   isGenerating?: boolean;
 }
 
-const TrackVariationDisplay: React.FC<TrackVariationDisplayProps> = ({ 
-  metadata, 
-  isGenerating 
+const TrackVariationDisplay: React.FC<TrackVariationDisplayProps> = ({
+  metadata,
+  isGenerating
 }) => {
   const getVariationElements = () => {
     const elements = [];
-    
+
     // Genre-specific elements
     const genreElements = {
       'progressive-house': ['Supersaw Lead', 'Progressive Pluck', 'Filtering Bass', 'Ethereal Pad'],
@@ -45,7 +45,7 @@ const TrackVariationDisplay: React.FC<TrackVariationDisplayProps> = ({
 
     elements.push(...(genreElements[metadata.genre] || []));
     elements.push(...(moodElements[metadata.mood] || []));
-    
+
     return elements.slice(0, 6); // Show max 6 elements
   };
 
@@ -91,51 +91,51 @@ const TrackVariationDisplay: React.FC<TrackVariationDisplayProps> = ({
         <div className="space-y-2">
           <h4 className="text-xs font-medium text-gray-400">Generated Elements</h4>
           <div className="flex flex-wrap gap-1">
-            {elements.map((element, index) => (
-              <motion.div
-                key={element}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.3, delay: index * 0.1 }}
-              >
-                <Badge 
-                  variant="secondary" 
-                  className="text-xs bg-gradient-to-r from-[#00ff8f]/10 to-[#00ffe1]/10 border-[#00ff8f]/20 text-[#00ff8f]/90"
-                >
+            {elements.map((element, index) =>
+            <motion.div
+              key={element}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.3, delay: index * 0.1 }}>
+
+                <Badge
+                variant="secondary"
+                className="text-xs bg-gradient-to-r from-[#00ff8f]/10 to-[#00ffe1]/10 border-[#00ff8f]/20 text-[#00ff8f]/90">
+
                   {element}
                 </Badge>
               </motion.div>
-            ))}
+            )}
           </div>
         </div>
 
         {/* Neural Processing Status */}
-        {isGenerating && (
-          <motion.div
-            className="flex items-center gap-2 p-2 rounded-lg bg-gradient-to-r from-[#00ff8f]/10 to-[#00ffe1]/10 border border-[#00ff8f]/20"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-          >
+        {isGenerating &&
+        <motion.div
+          className="flex items-center gap-2 p-2 rounded-lg bg-gradient-to-r from-[#00ff8f]/10 to-[#00ffe1]/10 border border-[#00ff8f]/20"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5 }}>
+
             <motion.div
-              className="w-2 h-2 bg-[#00ff8f] rounded-full"
-              animate={{
-                scale: [1, 1.2, 1],
-                opacity: [0.5, 1, 0.5]
-              }}
-              transition={{
-                duration: 1,
-                repeat: Infinity
-              }}
-            />
+            className="w-2 h-2 bg-[#00ff8f] rounded-full"
+            animate={{
+              scale: [1, 1.2, 1],
+              opacity: [0.5, 1, 0.5]
+            }}
+            transition={{
+              duration: 1,
+              repeat: Infinity
+            }} />
+
             <span className="text-xs text-[#00ff8f]/90">
               Neural synthesis in progress...
             </span>
           </motion.div>
-        )}
+        }
       </CardContent>
-    </Card>
-  );
+    </Card>);
+
 };
 
 export default TrackVariationDisplay;

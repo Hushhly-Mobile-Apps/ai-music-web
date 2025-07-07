@@ -7,10 +7,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Save, 
-  Load, 
-  Star, 
+import {
+  Save,
+  Load,
+  Star,
   Heart,
   Share2,
   Download,
@@ -20,8 +20,8 @@ import {
   Settings,
   Users,
   TrendingUp,
-  Clock
-} from 'lucide-react';
+  Clock } from
+'lucide-react';
 import { toast } from 'sonner';
 
 interface EDMPreset {
@@ -70,111 +70,111 @@ const EDMPresetManager = ({
   const [isPublic, setIsPublic] = useState(false);
 
   const genres = [
-    'progressive-house', 'future-bass', 'big-room', 'techno', 'trance',
-    'dubstep', 'trap', 'hardstyle', 'deep-house', 'electro'
-  ];
+  'progressive-house', 'future-bass', 'big-room', 'techno', 'trance',
+  'dubstep', 'trap', 'hardstyle', 'deep-house', 'electro'];
+
 
   const moods = [
-    'uplifting', 'dark', 'chill', 'energetic', 'ethereal', 'aggressive'
-  ];
+  'uplifting', 'dark', 'chill', 'energetic', 'ethereal', 'aggressive'];
+
 
   const defaultPresets: EDMPreset[] = [
-    {
-      id: 'preset-1',
-      name: 'Festival Anthem',
-      genre: 'big-room',
-      mood: 'uplifting',
-      bpm: 128,
-      keySignature: 'C major',
-      effects: ['reverb', 'chorus', 'delay', 'compressor'],
-      complexity: 'complex',
-      mixingStyle: 'compressed',
-      arrangeStyle: 'intro-buildup-drop-outro',
-      isPublic: true,
-      usageCount: 147,
-      rating: 4.8,
-      isFavorite: false,
-      createdBy: 'AI_SYSTEM',
-      createdAt: '2024-01-15',
-      tags: ['festival', 'mainstage', 'crowd-pleaser']
-    },
-    {
-      id: 'preset-2',
-      name: 'Dark Underground',
-      genre: 'techno',
-      mood: 'dark',
-      bpm: 132,
-      keySignature: 'A minor',
-      effects: ['filter', 'distortion', 'delay'],
-      complexity: 'medium',
-      mixingStyle: 'saturated',
-      arrangeStyle: 'continuous-mix',
-      isPublic: true,
-      usageCount: 89,
-      rating: 4.5,
-      isFavorite: false,
-      createdBy: 'AI_SYSTEM',
-      createdAt: '2024-01-10',
-      tags: ['underground', 'minimal', 'driving']
-    },
-    {
-      id: 'preset-3',
-      name: 'Emotional Journey',
-      genre: 'trance',
-      mood: 'ethereal',
-      bpm: 138,
-      keySignature: 'F# major',
-      effects: ['reverb', 'chorus', 'delay', 'phaser'],
-      complexity: 'complex',
-      mixingStyle: 'clean',
-      arrangeStyle: 'verse-chorus',
-      isPublic: true,
-      usageCount: 203,
-      rating: 4.9,
-      isFavorite: true,
-      createdBy: 'AI_SYSTEM',
-      createdAt: '2024-01-20',
-      tags: ['emotional', 'uplifting', 'melodic']
-    },
-    {
-      id: 'preset-4',
-      name: 'Bass Heavy Drop',
-      genre: 'dubstep',
-      mood: 'aggressive',
-      bpm: 145,
-      keySignature: 'D minor',
-      effects: ['distortion', 'filter', 'bitcrusher'],
-      complexity: 'experimental',
-      mixingStyle: 'saturated',
-      arrangeStyle: 'intro-buildup-drop-outro',
-      isPublic: true,
-      usageCount: 156,
-      rating: 4.6,
-      isFavorite: false,
-      createdBy: 'AI_SYSTEM',
-      createdAt: '2024-01-12',
-      tags: ['bass', 'heavy', 'aggressive', 'dubstep']
-    },
-    {
-      id: 'preset-5',
-      name: 'Chill Vibes',
-      genre: 'deep-house',
-      mood: 'chill',
-      bpm: 122,
-      keySignature: 'Bb major',
-      effects: ['reverb', 'chorus'],
-      complexity: 'simple',
-      mixingStyle: 'clean',
-      arrangeStyle: 'continuous-mix',
-      isPublic: true,
-      usageCount: 92,
-      rating: 4.3,
-      isFavorite: false,
-      createdBy: 'AI_SYSTEM',
-      createdAt: '2024-01-08',
-      tags: ['chill', 'relaxed', 'smooth']
-    }
-  ];
+  {
+    id: 'preset-1',
+    name: 'Festival Anthem',
+    genre: 'big-room',
+    mood: 'uplifting',
+    bpm: 128,
+    keySignature: 'C major',
+    effects: ['reverb', 'chorus', 'delay', 'compressor'],
+    complexity: 'complex',
+    mixingStyle: 'compressed',
+    arrangeStyle: 'intro-buildup-drop-outro',
+    isPublic: true,
+    usageCount: 147,
+    rating: 4.8,
+    isFavorite: false,
+    createdBy: 'AI_SYSTEM',
+    createdAt: '2024-01-15',
+    tags: ['festival', 'mainstage', 'crowd-pleaser']
+  },
+  {
+    id: 'preset-2',
+    name: 'Dark Underground',
+    genre: 'techno',
+    mood: 'dark',
+    bpm: 132,
+    keySignature: 'A minor',
+    effects: ['filter', 'distortion', 'delay'],
+    complexity: 'medium',
+    mixingStyle: 'saturated',
+    arrangeStyle: 'continuous-mix',
+    isPublic: true,
+    usageCount: 89,
+    rating: 4.5,
+    isFavorite: false,
+    createdBy: 'AI_SYSTEM',
+    createdAt: '2024-01-10',
+    tags: ['underground', 'minimal', 'driving']
+  },
+  {
+    id: 'preset-3',
+    name: 'Emotional Journey',
+    genre: 'trance',
+    mood: 'ethereal',
+    bpm: 138,
+    keySignature: 'F# major',
+    effects: ['reverb', 'chorus', 'delay', 'phaser'],
+    complexity: 'complex',
+    mixingStyle: 'clean',
+    arrangeStyle: 'verse-chorus',
+    isPublic: true,
+    usageCount: 203,
+    rating: 4.9,
+    isFavorite: true,
+    createdBy: 'AI_SYSTEM',
+    createdAt: '2024-01-20',
+    tags: ['emotional', 'uplifting', 'melodic']
+  },
+  {
+    id: 'preset-4',
+    name: 'Bass Heavy Drop',
+    genre: 'dubstep',
+    mood: 'aggressive',
+    bpm: 145,
+    keySignature: 'D minor',
+    effects: ['distortion', 'filter', 'bitcrusher'],
+    complexity: 'experimental',
+    mixingStyle: 'saturated',
+    arrangeStyle: 'intro-buildup-drop-outro',
+    isPublic: true,
+    usageCount: 156,
+    rating: 4.6,
+    isFavorite: false,
+    createdBy: 'AI_SYSTEM',
+    createdAt: '2024-01-12',
+    tags: ['bass', 'heavy', 'aggressive', 'dubstep']
+  },
+  {
+    id: 'preset-5',
+    name: 'Chill Vibes',
+    genre: 'deep-house',
+    mood: 'chill',
+    bpm: 122,
+    keySignature: 'Bb major',
+    effects: ['reverb', 'chorus'],
+    complexity: 'simple',
+    mixingStyle: 'clean',
+    arrangeStyle: 'continuous-mix',
+    isPublic: true,
+    usageCount: 92,
+    rating: 4.3,
+    isFavorite: false,
+    createdBy: 'AI_SYSTEM',
+    createdAt: '2024-01-08',
+    tags: ['chill', 'relaxed', 'smooth']
+  }];
+
 
   useEffect(() => {
     loadPresets();
@@ -232,15 +232,15 @@ const EDMPresetManager = ({
   };
 
   const filterAndSortPresets = () => {
-    let filtered = presets.filter(preset => {
+    let filtered = presets.filter((preset) => {
       const matchesSearch = preset.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           preset.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
+      preset.tags.some((tag) => tag.toLowerCase().includes(searchTerm.toLowerCase()));
       const matchesGenre = filterGenre === 'all' || preset.genre === filterGenre;
       const matchesCategory = filterCategory === 'all' ||
-                             (filterCategory === 'favorites' && preset.isFavorite) ||
-                             (filterCategory === 'public' && preset.isPublic) ||
-                             (filterCategory === 'my-presets' && preset.createdBy !== 'AI_SYSTEM');
-      
+      filterCategory === 'favorites' && preset.isFavorite ||
+      filterCategory === 'public' && preset.isPublic ||
+      filterCategory === 'my-presets' && preset.createdBy !== 'AI_SYSTEM';
+
       return matchesSearch && matchesGenre && matchesCategory;
     });
 
@@ -304,7 +304,7 @@ const EDMPresetManager = ({
         mixingStyle: currentSettings.mixingStyle || 'clean',
         arrangeStyle: currentSettings.arrangeStyle || 'intro-buildup-drop-outro',
         isPublic,
-        tags: newPresetTags.split(',').map(tag => tag.trim()).filter(tag => tag)
+        tags: newPresetTags.split(',').map((tag) => tag.trim()).filter((tag) => tag)
       };
 
       // Save to database
@@ -326,12 +326,12 @@ const EDMPresetManager = ({
 
       onSavePreset?.(newPreset);
       toast.success(`Preset "${newPreset.name}" saved successfully!`);
-      
+
       setShowSaveDialog(false);
       setNewPresetName('');
       setNewPresetTags('');
       setIsPublic(false);
-      
+
       // Reload presets
       loadPresets();
     } catch (error) {
@@ -341,30 +341,30 @@ const EDMPresetManager = ({
   };
 
   const toggleFavorite = (presetId: string) => {
-    setPresets(prev => prev.map(preset => 
-      preset.id === presetId 
-        ? { ...preset, isFavorite: !preset.isFavorite }
-        : preset
+    setPresets((prev) => prev.map((preset) =>
+    preset.id === presetId ?
+    { ...preset, isFavorite: !preset.isFavorite } :
+    preset
     ));
     toast.success('Favorites updated');
   };
 
   const ratePreset = (presetId: string, rating: number) => {
-    setPresets(prev => prev.map(preset => 
-      preset.id === presetId 
-        ? { ...preset, rating }
-        : preset
+    setPresets((prev) => prev.map((preset) =>
+    preset.id === presetId ?
+    { ...preset, rating } :
+    preset
     ));
     toast.success(`Rated preset: ${rating} stars`);
   };
 
   const getComplexityColor = (complexity: string) => {
     switch (complexity) {
-      case 'simple': return 'border-blue-500 text-blue-400';
-      case 'medium': return 'border-green-500 text-green-400';
-      case 'complex': return 'border-orange-500 text-orange-400';
-      case 'experimental': return 'border-red-500 text-red-400';
-      default: return 'border-gray-500 text-gray-400';
+      case 'simple':return 'border-blue-500 text-blue-400';
+      case 'medium':return 'border-green-500 text-green-400';
+      case 'complex':return 'border-orange-500 text-orange-400';
+      case 'experimental':return 'border-red-500 text-red-400';
+      default:return 'border-gray-500 text-gray-400';
     }
   };
 
@@ -398,8 +398,8 @@ const EDMPresetManager = ({
                     value={newPresetName}
                     onChange={(e) => setNewPresetName(e.target.value)}
                     placeholder="Enter preset name..."
-                    className="bg-gray-800 border-gray-700 text-white"
-                  />
+                    className="bg-gray-800 border-gray-700 text-white" />
+
                 </div>
                 <div>
                   <label className="text-sm text-gray-400 mb-2 block">Tags (comma separated)</label>
@@ -407,8 +407,8 @@ const EDMPresetManager = ({
                     value={newPresetTags}
                     onChange={(e) => setNewPresetTags(e.target.value)}
                     placeholder="festival, mainstage, uplifting..."
-                    className="bg-gray-800 border-gray-700 text-white"
-                  />
+                    className="bg-gray-800 border-gray-700 text-white" />
+
                 </div>
                 <div className="flex items-center space-x-2">
                   <input
@@ -416,8 +416,8 @@ const EDMPresetManager = ({
                     id="public"
                     checked={isPublic}
                     onChange={(e) => setIsPublic(e.target.checked)}
-                    className="rounded border-gray-700"
-                  />
+                    className="rounded border-gray-700" />
+
                   <label htmlFor="public" className="text-sm text-gray-400">
                     Make this preset public
                   </label>
@@ -441,8 +441,8 @@ const EDMPresetManager = ({
             placeholder="Search presets..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="bg-gray-800 border-gray-700 text-white"
-          />
+            className="bg-gray-800 border-gray-700 text-white" />
+
           
           <Select value={filterGenre} onValueChange={setFilterGenre}>
             <SelectTrigger className="bg-gray-800 border-gray-700 text-white">
@@ -450,11 +450,11 @@ const EDMPresetManager = ({
             </SelectTrigger>
             <SelectContent className="bg-gray-800 border-gray-700">
               <SelectItem value="all" className="text-white">All Genres</SelectItem>
-              {genres.map(genre => (
-                <SelectItem key={genre} value={genre} className="text-white">
-                  {genre.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase())}
+              {genres.map((genre) =>
+              <SelectItem key={genre} value={genre} className="text-white">
+                  {genre.replace('-', ' ').replace(/\b\w/g, (l) => l.toUpperCase())}
                 </SelectItem>
-              ))}
+              )}
             </SelectContent>
           </Select>
           
@@ -484,36 +484,36 @@ const EDMPresetManager = ({
         </div>
 
         {/* Presets Grid */}
-        {loading ? (
-          <div className="text-center py-12">
+        {loading ?
+        <div className="text-center py-12">
             <motion.div
-              className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4"
-              animate={{ rotate: 360 }}
-              transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-            >
+            className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}>
+
               <Settings className="w-8 h-8 text-green-400" />
             </motion.div>
             <p className="text-green-400 font-semibold">Loading Presets...</p>
-          </div>
-        ) : filteredPresets.length === 0 ? (
-          <div className="text-center py-12">
+          </div> :
+        filteredPresets.length === 0 ?
+        <div className="text-center py-12">
             <div className="w-16 h-16 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4">
               <Music className="w-8 h-8 text-gray-600" />
             </div>
             <p className="text-gray-400">No presets found</p>
             <p className="text-gray-500 text-sm mt-2">Try adjusting your search filters</p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          </div> :
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <AnimatePresence>
-              {filteredPresets.map((preset, index) => (
-                <motion.div
-                  key={preset.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.05 }}
-                  className="bg-gray-800 rounded-lg p-4 border border-gray-700 hover:border-green-500/50 transition-all"
-                >
+              {filteredPresets.map((preset, index) =>
+            <motion.div
+              key={preset.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.05 }}
+              className="bg-gray-800 rounded-lg p-4 border border-gray-700 hover:border-green-500/50 transition-all">
+
                   <div className="flex items-start justify-between mb-3">
                     <div className="flex-1 min-w-0">
                       <h4 className="text-white font-semibold truncate">{preset.name}</h4>
@@ -529,16 +529,16 @@ const EDMPresetManager = ({
                     
                     <div className="flex items-center gap-1 ml-2">
                       <Button
-                        size="sm"
-                        variant="ghost"
-                        onClick={() => toggleFavorite(preset.id)}
-                        className={`h-8 w-8 p-0 ${preset.isFavorite ? 'text-red-400' : 'text-gray-400'}`}
-                      >
+                    size="sm"
+                    variant="ghost"
+                    onClick={() => toggleFavorite(preset.id)}
+                    className={`h-8 w-8 p-0 ${preset.isFavorite ? 'text-red-400' : 'text-gray-400'}`}>
+
                         <Heart className={`w-4 h-4 ${preset.isFavorite ? 'fill-current' : ''}`} />
                       </Button>
-                      {preset.isPublic && (
-                        <Share2 className="w-4 h-4 text-blue-400" />
-                      )}
+                      {preset.isPublic &&
+                  <Share2 className="w-4 h-4 text-blue-400" />
+                  }
                     </div>
                   </div>
 
@@ -564,12 +564,12 @@ const EDMPresetManager = ({
                       <Users className="w-3 h-3" />
                       {preset.usageCount} uses
                     </div>
-                    {preset.rating && (
-                      <div className="flex items-center gap-1">
+                    {preset.rating &&
+                <div className="flex items-center gap-1">
                         <Star className="w-3 h-3 text-yellow-400 fill-current" />
                         {preset.rating.toFixed(1)}
                       </div>
-                    )}
+                }
                     <div className="flex items-center gap-1">
                       <Clock className="w-3 h-3" />
                       {preset.createdAt}
@@ -577,66 +577,66 @@ const EDMPresetManager = ({
                   </div>
 
                   {/* Tags */}
-                  {preset.tags.length > 0 && (
-                    <div className="mb-4">
+                  {preset.tags.length > 0 &&
+              <div className="mb-4">
                       <div className="flex flex-wrap gap-1">
-                        {preset.tags.slice(0, 3).map((tag, index) => (
-                          <Badge 
-                            key={index}
-                            variant="outline" 
-                            className="border-gray-600 text-gray-400 text-xs"
-                          >
+                        {preset.tags.slice(0, 3).map((tag, index) =>
+                  <Badge
+                    key={index}
+                    variant="outline"
+                    className="border-gray-600 text-gray-400 text-xs">
+
                             {tag}
                           </Badge>
-                        ))}
-                        {preset.tags.length > 3 && (
-                          <Badge variant="outline" className="border-gray-600 text-gray-400 text-xs">
+                  )}
+                        {preset.tags.length > 3 &&
+                  <Badge variant="outline" className="border-gray-600 text-gray-400 text-xs">
                             +{preset.tags.length - 3}
                           </Badge>
-                        )}
+                  }
                       </div>
                     </div>
-                  )}
+              }
 
                   {/* Actions */}
                   <div className="flex gap-2">
                     <Button
-                      size="sm"
-                      onClick={() => handleLoadPreset(preset)}
-                      className="flex-1 bg-green-500 hover:bg-green-600 text-black"
-                    >
+                  size="sm"
+                  onClick={() => handleLoadPreset(preset)}
+                  className="flex-1 bg-green-500 hover:bg-green-600 text-black">
+
                       <Load className="w-3 h-3 mr-1" />
                       Load
                     </Button>
                     
                     <div className="flex items-center gap-1">
-                      {[1, 2, 3, 4, 5].map((star) => (
-                        <button
-                          key={star}
-                          onClick={() => ratePreset(preset.id, star)}
-                          className={`w-3 h-3 ${
-                            star <= (preset.rating || 0)
-                              ? 'text-yellow-400'
-                              : 'text-gray-600'
-                          }`}
-                        >
-                          <Star 
-                            className={`w-3 h-3 ${
-                              star <= (preset.rating || 0) ? 'fill-current' : ''
-                            }`} 
-                          />
+                      {[1, 2, 3, 4, 5].map((star) =>
+                  <button
+                    key={star}
+                    onClick={() => ratePreset(preset.id, star)}
+                    className={`w-3 h-3 ${
+                    star <= (preset.rating || 0) ?
+                    'text-yellow-400' :
+                    'text-gray-600'}`
+                    }>
+
+                          <Star
+                      className={`w-3 h-3 ${
+                      star <= (preset.rating || 0) ? 'fill-current' : ''}`
+                      } />
+
                         </button>
-                      ))}
+                  )}
                     </div>
                   </div>
                 </motion.div>
-              ))}
+            )}
             </AnimatePresence>
           </div>
-        )}
+        }
       </CardContent>
-    </Card>
-  );
+    </Card>);
+
 };
 
 export default EDMPresetManager;

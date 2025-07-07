@@ -86,37 +86,37 @@ const ULTRA_EDM_LIBRARY = {
   // Advanced chord progressions for each genre
   advancedProgressions: {
     'progressive-house': [
-      ['vi', 'IV', 'I', 'V'], ['I', 'vi', 'IV', 'V'], ['vi', 'V', 'I', 'IV'],
-      ['ii', 'V', 'I', 'vi'], ['I', 'V', 'vi', 'iii'], ['vi', 'ii', 'V', 'I']
-    ],
+    ['vi', 'IV', 'I', 'V'], ['I', 'vi', 'IV', 'V'], ['vi', 'V', 'I', 'IV'],
+    ['ii', 'V', 'I', 'vi'], ['I', 'V', 'vi', 'iii'], ['vi', 'ii', 'V', 'I']],
+
     'future-bass': [
-      ['vi', 'IV', 'I', 'V'], ['I', 'vi', 'ii', 'V'], ['vi', 'ii', 'V', 'I'],
-      ['I', 'V', 'vi', 'iii'], ['iv', 'I', 'V', 'vi'], ['vi', 'iii', 'IV', 'I']
-    ],
+    ['vi', 'IV', 'I', 'V'], ['I', 'vi', 'ii', 'V'], ['vi', 'ii', 'V', 'I'],
+    ['I', 'V', 'vi', 'iii'], ['iv', 'I', 'V', 'vi'], ['vi', 'iii', 'IV', 'I']],
+
     'techno': [
-      ['i', 'iv', 'VI', 'VII'], ['i', 'VI', 'III', 'VII'], ['i', 'v', 'i', 'v'],
-      ['i', 'iv', 'v', 'i'], ['i', 'VII', 'iv', 'i'], ['i', 'ii°', 'V', 'i']
-    ],
+    ['i', 'iv', 'VI', 'VII'], ['i', 'VI', 'III', 'VII'], ['i', 'v', 'i', 'v'],
+    ['i', 'iv', 'v', 'i'], ['i', 'VII', 'iv', 'i'], ['i', 'ii°', 'V', 'i']],
+
     'trance': [
-      ['vi', 'IV', 'I', 'V'], ['I', 'vi', 'IV', 'V'], ['vi', 'V', 'I', 'IV'],
-      ['I', 'V', 'vi', 'IV'], ['ii', 'V', 'I', 'vi'], ['vi', 'ii', 'V', 'I']
-    ],
+    ['vi', 'IV', 'I', 'V'], ['I', 'vi', 'IV', 'V'], ['vi', 'V', 'I', 'IV'],
+    ['I', 'V', 'vi', 'IV'], ['ii', 'V', 'I', 'vi'], ['vi', 'ii', 'V', 'I']],
+
     'dubstep': [
-      ['i', 'VI', 'III', 'VII'], ['i', 'iv', 'VI', 'v'], ['i', 'v', 'VI', 'iv'],
-      ['i', 'VII', 'VI', 'v'], ['i', 'iv', 'v', 'VI'], ['i', 'III', 'VII', 'iv']
-    ],
+    ['i', 'VI', 'III', 'VII'], ['i', 'iv', 'VI', 'v'], ['i', 'v', 'VI', 'iv'],
+    ['i', 'VII', 'VI', 'v'], ['i', 'iv', 'v', 'VI'], ['i', 'III', 'VII', 'iv']],
+
     'hardstyle': [
-      ['i', 'VI', 'III', 'VII'], ['i', 'iv', 'v', 'i'], ['i', 'v', 'VI', 'iv'],
-      ['i', 'VII', 'VI', 'v'], ['i', 'iv', 'VII', 'VI'], ['i', 'v', 'iv', 'VII']
-    ],
+    ['i', 'VI', 'III', 'VII'], ['i', 'iv', 'v', 'i'], ['i', 'v', 'VI', 'iv'],
+    ['i', 'VII', 'VI', 'v'], ['i', 'iv', 'VII', 'VI'], ['i', 'v', 'iv', 'VII']],
+
     'trap': [
-      ['i', 'VI', 'iv', 'V'], ['i', 'III', 'VI', 'VII'], ['i', 'iv', 'v', 'VI'],
-      ['i', 'VII', 'VI', 'iv'], ['i', 'v', 'VII', 'VI'], ['i', 'iv', 'III', 'VII']
-    ],
+    ['i', 'VI', 'iv', 'V'], ['i', 'III', 'VI', 'VII'], ['i', 'iv', 'v', 'VI'],
+    ['i', 'VII', 'VI', 'iv'], ['i', 'v', 'VII', 'VI'], ['i', 'iv', 'III', 'VII']],
+
     'deep-house': [
-      ['vi', 'IV', 'I', 'V'], ['I', 'vi', 'IV', 'V'], ['ii', 'V', 'I', 'vi'],
-      ['vi', 'ii', 'V', 'I'], ['I', 'iii', 'vi', 'IV'], ['vi', 'V', 'IV', 'I']
-    ]
+    ['vi', 'IV', 'I', 'V'], ['I', 'vi', 'IV', 'V'], ['ii', 'V', 'I', 'vi'],
+    ['vi', 'ii', 'V', 'I'], ['I', 'iii', 'vi', 'IV'], ['vi', 'V', 'IV', 'I']]
+
   },
 
   // Song arrangement templates
@@ -160,9 +160,9 @@ const ULTRA_EDM_LIBRARY = {
 };
 
 export class EnhancedAudioGenerationService {
-  private synths: {[key: string]: any} = {};
-  private drums: {[key: string]: Tone.MembraneSynth} = {};
-  private effects: {[key: string]: any} = {};
+  private synths: {[key: string]: any;} = {};
+  private drums: {[key: string]: Tone.MembraneSynth;} = {};
+  private effects: {[key: string]: any;} = {};
   private isInitialized = false;
   private currentSeed = 0;
   private generationId = '';
@@ -180,11 +180,11 @@ export class EnhancedAudioGenerationService {
         oscillator: config.oscillator,
         envelope: config.envelope
       });
-      
+
       // Add filter for each synth
       const filter = new Tone.Filter(config.filter.frequency, config.filter.type);
       filter.Q.value = config.filter.Q;
-      
+
       synth.chain(filter, Tone.Destination);
       this.synths[name] = { synth, filter };
     });
@@ -245,7 +245,7 @@ export class EnhancedAudioGenerationService {
     });
 
     // Connect all drums to destination
-    Object.values(this.drums).forEach(drum => drum.toDestination());
+    Object.values(this.drums).forEach((drum) => drum.toDestination());
   }
 
   private initializeAdvancedEffects() {
@@ -256,7 +256,7 @@ export class EnhancedAudioGenerationService {
     this.effects.distortion = new Tone.Distortion(0.8);
     this.effects.filter = new Tone.Filter(800, 'lowpass');
     this.effects.compressor = new Tone.Compressor(-30, 3);
-    
+
     // Advanced effects
     this.effects.phaser = new Tone.Phaser({ frequency: 0.5, octaves: 3, baseFrequency: 350 });
     this.effects.tremolo = new Tone.Tremolo(9, 0.75);
@@ -281,9 +281,9 @@ export class EnhancedAudioGenerationService {
       complex: 2,
       experimental: 3
     };
-    
-    const str = options.genre + options.mood + options.prompt + 
-                (options.complexity || 'medium') + Date.now() + Math.random();
+
+    const str = options.genre + options.mood + options.prompt + (
+    options.complexity || 'medium') + Date.now() + Math.random();
     let hash = 0;
     for (let i = 0; i < str.length; i++) {
       const char = str.charCodeAt(i);
@@ -316,21 +316,21 @@ export class EnhancedAudioGenerationService {
   }
 
   private async generateSingleVariation(
-    options: AdvancedAudioGenerationOptions, 
-    variationNumber: number
-  ): Promise<GeneratedAudioVariation> {
+  options: AdvancedAudioGenerationOptions,
+  variationNumber: number)
+  : Promise<GeneratedAudioVariation> {
     const duration = options.duration || 60;
     const bpm = this.getAdvancedBPM(options);
     const key = this.getAdvancedKey(options);
     const complexity = options.complexity || 'medium';
-    
+
     // Set transport BPM with micro-variations
     const bpmVariation = Math.floor(this.seededRandom(this.currentSeed, variationNumber) * 8) - 4;
     Tone.Transport.bpm.value = bpm + bpmVariation;
 
     // Generate advanced musical sequence
     const sequence = this.generateAdvancedSequence(options, variationNumber);
-    
+
     // Get arrangement template
     const arrangeStyle = options.arrangeStyle || 'intro-buildup-drop-outro';
     const arrangement = ULTRA_EDM_LIBRARY.arrangements[arrangeStyle];
@@ -349,7 +349,7 @@ export class EnhancedAudioGenerationService {
     await this.scheduleAdvancedArrangement(sequence, arrangement, duration, variationNumber);
 
     // Wait for completion
-    await new Promise(resolve => setTimeout(resolve, duration * 1000));
+    await new Promise((resolve) => setTimeout(resolve, duration * 1000));
 
     // Stop and finalize
     Tone.Transport.stop();
@@ -388,12 +388,12 @@ export class EnhancedAudioGenerationService {
       complex: Math.floor(this.seededRandom(this.currentSeed) * 10) - 5,
       experimental: Math.floor(this.seededRandom(this.currentSeed) * 20) - 10
     };
-    
+
     return baseBPM + complexityModifier[options.complexity || 'medium'];
   }
 
   private getDefaultBPMForGenre(genre: string): number {
-    const bpmRanges: {[key: string]: [number, number]} = {
+    const bpmRanges: {[key: string]: [number, number];} = {
       'progressive-house': [126, 134],
       'future-bass': [140, 160],
       'big-room': [128, 132],
@@ -413,7 +413,7 @@ export class EnhancedAudioGenerationService {
   private getAdvancedKey(options: AdvancedAudioGenerationOptions): string {
     if (options.key) return options.key;
 
-    const keysByMood: {[key: string]: string[]} = {
+    const keysByMood: {[key: string]: string[];} = {
       uplifting: ['C major', 'G major', 'D major', 'A major', 'E major'],
       dark: ['A minor', 'E minor', 'B minor', 'F# minor', 'C# minor'],
       chill: ['F major', 'Bb major', 'Eb major', 'Ab major', 'Db major'],
@@ -430,11 +430,11 @@ export class EnhancedAudioGenerationService {
   private generateAdvancedSequence(options: AdvancedAudioGenerationOptions, variation: number) {
     const genre = options.genre;
     const complexity = options.complexity || 'medium';
-    
+
     // Get progression
-    const progressions = ULTRA_EDM_LIBRARY.advancedProgressions[genre] || 
-                        ULTRA_EDM_LIBRARY.advancedProgressions['progressive-house'];
-    const progressionIndex = (this.seededRandom(this.currentSeed, variation) * progressions.length) | 0;
+    const progressions = ULTRA_EDM_LIBRARY.advancedProgressions[genre] ||
+    ULTRA_EDM_LIBRARY.advancedProgressions['progressive-house'];
+    const progressionIndex = this.seededRandom(this.currentSeed, variation) * progressions.length | 0;
     const selectedProgression = progressions[progressionIndex];
 
     // Generate layers based on complexity
@@ -463,13 +463,13 @@ export class EnhancedAudioGenerationService {
           bassLine: baseLayers.bassLine,
           drumPattern: baseLayers.drumPattern
         };
-      
+
       case 'medium':
         return {
           ...baseLayers,
           pad: this.generatePadLayer(options, variation)
         };
-      
+
       case 'complex':
         return {
           ...baseLayers,
@@ -477,7 +477,7 @@ export class EnhancedAudioGenerationService {
           lead: this.generateLeadLayer(options, variation),
           percussion: this.generatePercussionLayer(options, variation)
         };
-      
+
       case 'experimental':
         return {
           ...baseLayers,
@@ -487,7 +487,7 @@ export class EnhancedAudioGenerationService {
           fx: this.generateFXLayer(options, variation),
           granular: this.generateGranularLayer(options, variation)
         };
-      
+
       default:
         return baseLayers;
     }
@@ -509,7 +509,7 @@ export class EnhancedAudioGenerationService {
 
   private generateAdvancedBass(options: AdvancedAudioGenerationOptions, variation: number): string[] {
     const genre = options.genre;
-    const bassPatterns: {[key: string]: string[]} = {
+    const bassPatterns: {[key: string]: string[];} = {
       'progressive-house': ['C2', 'C2', 'F2', 'F2', 'G2', 'G2', 'A2', 'A2'],
       'future-bass': ['C2', 'C3', 'F2', 'F3', 'G2', 'G3', 'A2', 'A3'],
       'techno': ['C1', 'C1', 'C1', 'C1', 'F1', 'F1', 'F1', 'F1'],
@@ -518,7 +518,7 @@ export class EnhancedAudioGenerationService {
     };
 
     const basePattern = bassPatterns[genre] || bassPatterns['progressive-house'];
-    
+
     // Add variation based on complexity and variation number
     return basePattern.map((note, i) => {
       if (this.seededRandom(this.currentSeed, i + variation) > 0.8) {
@@ -530,11 +530,11 @@ export class EnhancedAudioGenerationService {
     });
   }
 
-  private generateAdvancedDrums(options: AdvancedAudioGenerationOptions, variation: number): {[key: string]: string[]} {
+  private generateAdvancedDrums(options: AdvancedAudioGenerationOptions, variation: number): {[key: string]: string[];} {
     const genre = options.genre;
     const complexity = options.complexity || 'medium';
-    
-    const basePatterns: {[key: string]: {[key: string]: string[]}} = {
+
+    const basePatterns: {[key: string]: {[key: string]: string[];};} = {
       'progressive-house': {
         kick: ['x', '.', '.', '.', 'x', '.', '.', '.'],
         snare: ['.', '.', 'x', '.', '.', '.', 'x', '.'],
@@ -564,7 +564,7 @@ export class EnhancedAudioGenerationService {
     }
 
     // Add variation-specific modifications
-    Object.keys(pattern).forEach(drumType => {
+    Object.keys(pattern).forEach((drumType) => {
       pattern[drumType] = pattern[drumType].map((hit, i) => {
         const rand = this.seededRandom(this.currentSeed, i + variation + drumType.length);
         if (hit === '.' && rand > 0.9) return 'x';
@@ -579,7 +579,7 @@ export class EnhancedAudioGenerationService {
   private generateAdvancedArpeggio(options: AdvancedAudioGenerationOptions, variation: number): string[] {
     const complexity = options.complexity || 'medium';
     const scaleNotes = this.getScaleNotes(options.key || 'C major');
-    
+
     const patterns = {
       simple: [0, 2, 4, 2],
       medium: [0, 2, 4, 6, 4, 2],
@@ -588,23 +588,23 @@ export class EnhancedAudioGenerationService {
     };
 
     const pattern = patterns[complexity];
-    const octave = 4 + (variation % 2);
+    const octave = 4 + variation % 2;
 
-    return pattern.map(noteIndex => `${scaleNotes[noteIndex % scaleNotes.length]}${octave}`);
+    return pattern.map((noteIndex) => `${scaleNotes[noteIndex % scaleNotes.length]}${octave}`);
   }
 
   private generatePadLayer(options: AdvancedAudioGenerationOptions, variation: number): string[] {
     const scaleNotes = this.getScaleNotes(options.key || 'C major');
     const chordNotes = [scaleNotes[0], scaleNotes[2], scaleNotes[4]];
     const octave = 3 + Math.floor(variation / 2);
-    
-    return chordNotes.map(note => `${note}${octave}`);
+
+    return chordNotes.map((note) => `${note}${octave}`);
   }
 
   private generateLeadLayer(options: AdvancedAudioGenerationOptions, variation: number): string[] {
     const melody = this.generateAdvancedMelody(options, variation);
     // Transpose lead an octave higher
-    return melody.map(note => {
+    return melody.map((note) => {
       const noteBase = note.slice(0, -1);
       const octave = parseInt(note.slice(-1));
       return `${noteBase}${octave + 1}`;
@@ -651,7 +651,7 @@ export class EnhancedAudioGenerationService {
     };
   }
 
-  private generateFilterAutomation(variation: number): Array<{time: number, value: number}> {
+  private generateFilterAutomation(variation: number): Array<{time: number;value: number;}> {
     const points = [];
     for (let i = 0; i < 8; i++) {
       points.push({
@@ -662,7 +662,7 @@ export class EnhancedAudioGenerationService {
     return points;
   }
 
-  private generateVolumeAutomation(variation: number): Array<{time: number, value: number}> {
+  private generateVolumeAutomation(variation: number): Array<{time: number;value: number;}> {
     const points = [];
     for (let i = 0; i < 4; i++) {
       points.push({
@@ -673,10 +673,10 @@ export class EnhancedAudioGenerationService {
     return points;
   }
 
-  private generateEffectAutomation(variation: number): {[key: string]: Array<{time: number, value: number}>} {
+  private generateEffectAutomation(variation: number): {[key: string]: Array<{time: number;value: number;}>;} {
     return {
-      delay: [{time: 0, value: 0}, {time: 2, value: 0.3}, {time: 4, value: 0}],
-      reverb: [{time: 0, value: 0.2}, {time: 3, value: 0.8}, {time: 6, value: 0.2}]
+      delay: [{ time: 0, value: 0 }, { time: 2, value: 0.3 }, { time: 4, value: 0 }],
+      reverb: [{ time: 0, value: 0.2 }, { time: 3, value: 0.8 }, { time: 6, value: 0.2 }]
     };
   }
 
@@ -684,16 +684,16 @@ export class EnhancedAudioGenerationService {
     const noteNames = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
     const rootNote = key.split(' ')[0];
     const mode = key.split(' ')[1] || 'major';
-    
+
     const scales = {
       major: [0, 2, 4, 5, 7, 9, 11],
       minor: [0, 2, 3, 5, 7, 8, 10]
     };
-    
+
     const rootIndex = noteNames.indexOf(rootNote);
     const scalePattern = scales[mode] || scales.major;
-    
-    return scalePattern.map(interval => noteNames[(rootIndex + interval) % 12]);
+
+    return scalePattern.map((interval) => noteNames[(rootIndex + interval) % 12]);
   }
 
   private connectAdvancedSynthChains(recorder: Tone.Recorder, options: AdvancedAudioGenerationOptions, variation: number) {
@@ -703,10 +703,10 @@ export class EnhancedAudioGenerationService {
     // Connect each synth through different effect chains
     Object.entries(this.synths).forEach(([name, synthConfig]) => {
       const { synth, filter } = synthConfig;
-      
+
       // Create unique effect chain for each synth based on variation
       const effects = this.createEffectChain(effectsChain, mixingStyle, variation);
-      
+
       if (effects.length > 0) {
         synth.chain(filter, ...effects, recorder);
       } else {
@@ -715,7 +715,7 @@ export class EnhancedAudioGenerationService {
     });
 
     // Connect drums with their own processing
-    Object.values(this.drums).forEach(drum => {
+    Object.values(this.drums).forEach((drum) => {
       const drumEffects = this.createDrumEffectChain(mixingStyle);
       if (drumEffects.length > 0) {
         drum.chain(...drumEffects, recorder);
@@ -727,7 +727,7 @@ export class EnhancedAudioGenerationService {
 
   private createEffectChain(effectsChain: string[], mixingStyle: string, variation: number): any[] {
     const effects = [];
-    
+
     effectsChain.forEach((effectName, index) => {
       if (this.effects[effectName]) {
         // Modify effect parameters based on variation
@@ -755,7 +755,7 @@ export class EnhancedAudioGenerationService {
 
   private createDrumEffectChain(mixingStyle: string): any[] {
     const effects = [this.effects.compressor];
-    
+
     switch (mixingStyle) {
       case 'saturated':
         effects.push(this.effects.distortion);
@@ -764,14 +764,14 @@ export class EnhancedAudioGenerationService {
         effects.push(this.effects.bitcrusher);
         break;
     }
-    
+
     return effects;
   }
 
   private modifyEffectForVariation(effect: any, effectName: string, variation: number, index: number) {
     // Modify effect parameters based on variation number
     const variationFactor = this.seededRandom(this.currentSeed, variation + index);
-    
+
     switch (effectName) {
       case 'reverb':
         if (effect.roomSize) {
@@ -800,7 +800,7 @@ export class EnhancedAudioGenerationService {
     if (options.effects && options.effects.length > 0) {
       return options.effects;
     }
-    
+
     const mixingStyle = options.mixingStyle || 'clean';
     return ULTRA_EDM_LIBRARY.effectChains[mixingStyle] || ULTRA_EDM_LIBRARY.effectChains.clean;
   }
@@ -808,8 +808,8 @@ export class EnhancedAudioGenerationService {
   private selectAdvancedEffects(options: AdvancedAudioGenerationOptions): string[] {
     const genre = options.genre;
     const complexity = options.complexity || 'medium';
-    
-    const effectsMap: {[key: string]: string[]} = {
+
+    const effectsMap: {[key: string]: string[];} = {
       'progressive-house': ['reverb', 'chorus', 'delay'],
       'future-bass': ['chorus', 'delay', 'distortion', 'phaser'],
       'techno': ['filter', 'distortion', 'delay', 'compressor'],
@@ -819,50 +819,50 @@ export class EnhancedAudioGenerationService {
     };
 
     let effects = effectsMap[genre] || effectsMap['progressive-house'];
-    
+
     // Add more effects for higher complexity
     if (complexity === 'complex') {
       effects = [...effects, 'tremolo', 'autoWah'];
     } else if (complexity === 'experimental') {
       effects = [...effects, 'tremolo', 'autoWah', 'pitchShift', 'chebyshev'];
     }
-    
+
     return effects;
   }
 
   private async scheduleAdvancedArrangement(
-    sequence: any, 
-    arrangement: any, 
-    totalDuration: number, 
-    variation: number
-  ) {
+  sequence: any,
+  arrangement: any,
+  totalDuration: number,
+  variation: number)
+  {
     let currentTime = 0;
     const sections = Object.entries(arrangement);
-    
+
     for (const [sectionName, sectionData] of sections) {
-      const section = sectionData as { duration: number; energy: number };
+      const section = sectionData as {duration: number;energy: number;};
       const sectionDuration = Math.min(section.duration, totalDuration - currentTime);
-      
+
       if (sectionDuration <= 0) break;
-      
+
       // Schedule section-specific patterns
       this.scheduleSection(sequence, currentTime, sectionDuration, section.energy, variation);
-      
+
       currentTime += sectionDuration;
-      
+
       if (currentTime >= totalDuration) break;
     }
   }
 
   private scheduleSection(sequence: any, startTime: number, duration: number, energy: number, variation: number) {
     const patternLength = '8n';
-    
+
     // Schedule drums with energy-based variations
     Object.entries(sequence.drumPattern).forEach(([drumType, pattern]) => {
       const drumPart = new Tone.Sequence((time, hit) => {
         if (hit === 'x') {
           const volume = energy * (0.5 + this.seededRandom(this.currentSeed, time + variation) * 0.5);
-          
+
           switch (drumType) {
             case 'kick':
             case 'kick808':
@@ -916,10 +916,10 @@ export class EnhancedAudioGenerationService {
   private scheduleAutomation(automation: any, startTime: number, duration: number, energy: number) {
     // Schedule filter automation
     if (automation.filterCutoff) {
-      automation.filterCutoff.forEach((point: {time: number, value: number}) => {
+      automation.filterCutoff.forEach((point: {time: number;value: number;}) => {
         if (point.time < duration) {
           Tone.Transport.schedule((time) => {
-            Object.values(this.synths).forEach(synthConfig => {
+            Object.values(this.synths).forEach((synthConfig) => {
               const { filter } = synthConfig;
               filter.frequency.setValueAtTime(point.value * energy, time);
             });
@@ -933,7 +933,7 @@ export class EnhancedAudioGenerationService {
     // Simulate frequency analysis based on genre and settings
     const genre = options.genre;
     const complexity = options.complexity || 'medium';
-    
+
     const baseAnalysis = {
       bassEnergy: 0.7,
       midEnergy: 0.6,
@@ -961,9 +961,9 @@ export class EnhancedAudioGenerationService {
 
     // Add variation-specific modifications
     const variationFactor = this.seededRandom(this.currentSeed, variation);
-    Object.keys(baseAnalysis).forEach(key => {
-      baseAnalysis[key as keyof typeof baseAnalysis] = Math.min(1.0, 
-        baseAnalysis[key as keyof typeof baseAnalysis] + (variationFactor - 0.5) * 0.2
+    Object.keys(baseAnalysis).forEach((key) => {
+      baseAnalysis[key as keyof typeof baseAnalysis] = Math.min(1.0,
+      baseAnalysis[key as keyof typeof baseAnalysis] + (variationFactor - 0.5) * 0.2
       );
     });
 
@@ -979,12 +979,12 @@ export class EnhancedAudioGenerationService {
   }
 
   dispose() {
-    Object.values(this.synths).forEach(synthConfig => {
+    Object.values(this.synths).forEach((synthConfig) => {
       synthConfig.synth.dispose();
       synthConfig.filter.dispose();
     });
-    Object.values(this.drums).forEach(drum => drum.dispose());
-    Object.values(this.effects).forEach(effect => effect.dispose());
+    Object.values(this.drums).forEach((drum) => drum.dispose());
+    Object.values(this.effects).forEach((effect) => effect.dispose());
     Tone.Transport.cancel();
     Tone.Transport.stop();
   }

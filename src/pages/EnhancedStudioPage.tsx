@@ -7,29 +7,29 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Slider } from '@/components/ui/slider';
-import { 
-  Music, 
-  Zap, 
-  Upload, 
-  Play, 
-  Loader2, 
+import {
+  Music,
+  Zap,
+  Upload,
+  Play,
+  Loader2,
   Settings,
   Shuffle,
   BarChart3,
   Layers,
   Volume2,
-  Sliders
-} from 'lucide-react';
+  Sliders } from
+'lucide-react';
 import Navigation from '@/components/Navigation';
 import FileUpload from '@/components/FileUpload';
 import ProgressBar from '@/components/ProgressBar';
 import TrackVariationsManager from '@/components/TrackVariationsManager';
 import AudioAnalysisDisplay from '@/components/AudioAnalysisDisplay';
 import EDMPresetManager from '@/components/EDMPresetManager';
-import EnhancedAudioGenerationService, { 
+import EnhancedAudioGenerationService, {
   type AdvancedAudioGenerationOptions,
-  type GeneratedAudioVariation 
-} from '@/services/EnhancedAudioGenerationService';
+  type GeneratedAudioVariation } from
+'@/services/EnhancedAudioGenerationService';
 import { toast } from 'sonner';
 
 const EnhancedStudioPage = () => {
@@ -44,7 +44,7 @@ const EnhancedStudioPage = () => {
   const [variations, setVariations] = useState([3]);
   const [duration, setDuration] = useState([60]);
   const [effects, setEffects] = useState<string[]>(['reverb', 'chorus']);
-  
+
   const [isLoading, setIsLoading] = useState(false);
   const [generatedVariations, setGeneratedVariations] = useState<TrackVariation[]>([]);
   const [currentAnalysis, setCurrentAnalysis] = useState<any>(null);
@@ -61,52 +61,52 @@ const EnhancedStudioPage = () => {
   }
 
   const genres = [
-    { value: 'progressive-house', label: 'Progressive House' },
-    { value: 'future-bass', label: 'Future Bass' },
-    { value: 'big-room', label: 'Big Room' },
-    { value: 'techno', label: 'Techno' },
-    { value: 'trance', label: 'Trance' },
-    { value: 'dubstep', label: 'Dubstep' },
-    { value: 'trap', label: 'Trap' },
-    { value: 'hardstyle', label: 'Hardstyle' },
-    { value: 'deep-house', label: 'Deep House' },
-    { value: 'electro', label: 'Electro House' }
-  ];
+  { value: 'progressive-house', label: 'Progressive House' },
+  { value: 'future-bass', label: 'Future Bass' },
+  { value: 'big-room', label: 'Big Room' },
+  { value: 'techno', label: 'Techno' },
+  { value: 'trance', label: 'Trance' },
+  { value: 'dubstep', label: 'Dubstep' },
+  { value: 'trap', label: 'Trap' },
+  { value: 'hardstyle', label: 'Hardstyle' },
+  { value: 'deep-house', label: 'Deep House' },
+  { value: 'electro', label: 'Electro House' }];
+
 
   const moods = [
-    { value: 'uplifting', label: 'Uplifting & Euphoric' },
-    { value: 'dark', label: 'Dark & Mysterious' },
-    { value: 'chill', label: 'Chill & Relaxed' },
-    { value: 'energetic', label: 'High Energy' },
-    { value: 'ethereal', label: 'Ethereal & Dreamy' },
-    { value: 'aggressive', label: 'Aggressive & Intense' }
-  ];
+  { value: 'uplifting', label: 'Uplifting & Euphoric' },
+  { value: 'dark', label: 'Dark & Mysterious' },
+  { value: 'chill', label: 'Chill & Relaxed' },
+  { value: 'energetic', label: 'High Energy' },
+  { value: 'ethereal', label: 'Ethereal & Dreamy' },
+  { value: 'aggressive', label: 'Aggressive & Intense' }];
+
 
   const complexityOptions = [
-    { value: 'simple', label: 'Simple', description: 'Basic structure with essential elements' },
-    { value: 'medium', label: 'Medium', description: 'Balanced complexity with multiple layers' },
-    { value: 'complex', label: 'Complex', description: 'Rich arrangement with advanced elements' },
-    { value: 'experimental', label: 'Experimental', description: 'Cutting-edge with experimental sounds' }
-  ];
+  { value: 'simple', label: 'Simple', description: 'Basic structure with essential elements' },
+  { value: 'medium', label: 'Medium', description: 'Balanced complexity with multiple layers' },
+  { value: 'complex', label: 'Complex', description: 'Rich arrangement with advanced elements' },
+  { value: 'experimental', label: 'Experimental', description: 'Cutting-edge with experimental sounds' }];
+
 
   const mixingStyles = [
-    { value: 'clean', label: 'Clean', description: 'Pristine, unprocessed sound' },
-    { value: 'compressed', label: 'Compressed', description: 'Radio-ready with compression' },
-    { value: 'saturated', label: 'Saturated', description: 'Warm, analog-style saturation' },
-    { value: 'vintage', label: 'Vintage', description: 'Retro processing and character' }
-  ];
+  { value: 'clean', label: 'Clean', description: 'Pristine, unprocessed sound' },
+  { value: 'compressed', label: 'Compressed', description: 'Radio-ready with compression' },
+  { value: 'saturated', label: 'Saturated', description: 'Warm, analog-style saturation' },
+  { value: 'vintage', label: 'Vintage', description: 'Retro processing and character' }];
+
 
   const arrangementStyles = [
-    { value: 'intro-buildup-drop-outro', label: 'Intro → Buildup → Drop → Outro' },
-    { value: 'verse-chorus', label: 'Verse → Chorus Structure' },
-    { value: 'continuous-mix', label: 'Continuous DJ Mix Style' },
-    { value: 'experimental', label: 'Experimental Structure' }
-  ];
+  { value: 'intro-buildup-drop-outro', label: 'Intro → Buildup → Drop → Outro' },
+  { value: 'verse-chorus', label: 'Verse → Chorus Structure' },
+  { value: 'continuous-mix', label: 'Continuous DJ Mix Style' },
+  { value: 'experimental', label: 'Experimental Structure' }];
+
 
   const availableEffects = [
-    'reverb', 'delay', 'chorus', 'distortion', 'filter', 'compressor',
-    'phaser', 'tremolo', 'autoWah', 'bitcrusher', 'feedbackDelay', 'pitchShift'
-  ];
+  'reverb', 'delay', 'chorus', 'distortion', 'filter', 'compressor',
+  'phaser', 'tremolo', 'autoWah', 'bitcrusher', 'feedbackDelay', 'pitchShift'];
+
 
   const handleFileSelect = (file: File) => {
     setSelectedFile(file);
@@ -147,7 +147,7 @@ const EnhancedStudioPage = () => {
     setIsLoading(true);
     setGeneratedVariations([]);
     setCurrentAnalysis(null);
-    
+
     const newSessionId = `session_${Date.now()}`;
     setSessionId(newSessionId);
 
@@ -194,7 +194,7 @@ const EnhancedStudioPage = () => {
       // Convert to TrackVariation format
       const trackVariations: TrackVariation[] = generatedData.map((variation: GeneratedAudioVariation) => {
         const audioBlob = audioService.createAudioBlob(variation.audioBuffer);
-        
+
         return {
           id: variation.metadata.uniqueId,
           audioBlob,
@@ -236,7 +236,7 @@ const EnhancedStudioPage = () => {
             prompt: options.prompt,
             genre: options.genre,
             mood: options.mood,
-            duration: variation.metadata ? (duration[0]) : 0,
+            duration: variation.metadata ? duration[0] : 0,
             generation_type: 'enhanced-remix',
             parameters: JSON.stringify({
               originalFile: selectedFile.name,
@@ -278,7 +278,7 @@ const EnhancedStudioPage = () => {
         last_played_at: new Date().toISOString(),
         peak_frequency_data: JSON.stringify(variation.metadata.frequencyAnalysis)
       });
-      
+
       toast.success('Variation analytics updated');
     } catch (error) {
       console.error('Analytics error:', error);
@@ -286,30 +286,30 @@ const EnhancedStudioPage = () => {
   };
 
   const handleRateVariation = (variationId: string, rating: number) => {
-    setGeneratedVariations(prev => 
-      prev.map(variation => 
-        variation.id === variationId 
-          ? { ...variation, rating }
-          : variation
-      )
+    setGeneratedVariations((prev) =>
+    prev.map((variation) =>
+    variation.id === variationId ?
+    { ...variation, rating } :
+    variation
+    )
     );
   };
 
   const handleToggleFavorite = (variationId: string) => {
-    setGeneratedVariations(prev => 
-      prev.map(variation => 
-        variation.id === variationId 
-          ? { ...variation, isFavorite: !variation.isFavorite }
-          : variation
-      )
+    setGeneratedVariations((prev) =>
+    prev.map((variation) =>
+    variation.id === variationId ?
+    { ...variation, isFavorite: !variation.isFavorite } :
+    variation
+    )
     );
   };
 
   const toggleEffect = (effect: string) => {
-    setEffects(prev => 
-      prev.includes(effect)
-        ? prev.filter(e => e !== effect)
-        : [...prev, effect]
+    setEffects((prev) =>
+    prev.includes(effect) ?
+    prev.filter((e) => e !== effect) :
+    [...prev, effect]
     );
   };
 
@@ -323,8 +323,8 @@ const EnhancedStudioPage = () => {
             className="max-w-7xl mx-auto"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
+            transition={{ duration: 0.6 }}>
+
             <div className="text-center mb-12">
               <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-green-400 to-cyan-400 bg-clip-text text-transparent">
                 Advanced EDM Production Studio
@@ -363,8 +363,8 @@ const EnhancedStudioPage = () => {
                         </div>
                         <FileUpload
                           onFileSelect={handleFileSelect}
-                          selectedFile={selectedFile || undefined}
-                        />
+                          selectedFile={selectedFile || undefined} />
+
                       </CardContent>
                     </Card>
 
@@ -384,11 +384,11 @@ const EnhancedStudioPage = () => {
                                 <SelectValue placeholder="Choose EDM genre" />
                               </SelectTrigger>
                               <SelectContent className="bg-gray-800 border-gray-700">
-                                {genres.map((g) => (
-                                  <SelectItem key={g.value} value={g.value} className="text-white">
+                                {genres.map((g) =>
+                                <SelectItem key={g.value} value={g.value} className="text-white">
                                     {g.label}
                                   </SelectItem>
-                                ))}
+                                )}
                               </SelectContent>
                             </Select>
                           </div>
@@ -400,11 +400,11 @@ const EnhancedStudioPage = () => {
                                 <SelectValue placeholder="Select mood" />
                               </SelectTrigger>
                               <SelectContent className="bg-gray-800 border-gray-700">
-                                {moods.map((m) => (
-                                  <SelectItem key={m.value} value={m.value} className="text-white">
+                                {moods.map((m) =>
+                                <SelectItem key={m.value} value={m.value} className="text-white">
                                     {m.label}
                                   </SelectItem>
-                                ))}
+                                )}
                               </SelectContent>
                             </Select>
                           </div>
@@ -433,8 +433,8 @@ const EnhancedStudioPage = () => {
                               max={200}
                               min={80}
                               step={1}
-                              className="w-full"
-                            />
+                              className="w-full" />
+
                           </div>
 
                           {/* Duration */}
@@ -449,8 +449,8 @@ const EnhancedStudioPage = () => {
                               max={180}
                               min={30}
                               step={15}
-                              className="w-full"
-                            />
+                              className="w-full" />
+
                           </div>
 
                           {/* Variations */}
@@ -465,28 +465,28 @@ const EnhancedStudioPage = () => {
                               max={6}
                               min={1}
                               step={1}
-                              className="w-full"
-                            />
+                              className="w-full" />
+
                           </div>
 
                           {/* Complexity */}
                           <div>
                             <label className="text-sm text-gray-400 mb-2 block">Complexity</label>
                             <div className="grid grid-cols-2 gap-2">
-                              {complexityOptions.map((option) => (
-                                <button
-                                  key={option.value}
-                                  onClick={() => setComplexity(option.value as any)}
-                                  className={`p-3 rounded-lg border transition-all text-left ${
-                                    complexity === option.value
-                                      ? 'border-green-500 bg-green-500/20'
-                                      : 'border-gray-700 bg-gray-800 hover:border-gray-600'
-                                  }`}
-                                >
+                              {complexityOptions.map((option) =>
+                              <button
+                                key={option.value}
+                                onClick={() => setComplexity(option.value as any)}
+                                className={`p-3 rounded-lg border transition-all text-left ${
+                                complexity === option.value ?
+                                'border-green-500 bg-green-500/20' :
+                                'border-gray-700 bg-gray-800 hover:border-gray-600'}`
+                                }>
+
                                   <div className="font-medium text-white">{option.label}</div>
                                   <div className="text-xs text-gray-400 mt-1">{option.description}</div>
                                 </button>
-                              ))}
+                              )}
                             </div>
                           </div>
                         </div>
@@ -504,8 +504,8 @@ const EnhancedStudioPage = () => {
                           placeholder="Describe your vision for this remix (e.g., 'Transform this into an explosive festival anthem with massive drops and euphoric breakdowns')"
                           value={prompt}
                           onChange={(e) => setPrompt(e.target.value)}
-                          className="min-h-[100px] bg-gray-800 border-gray-700 text-white placeholder:text-gray-400"
-                        />
+                          className="min-h-[100px] bg-gray-800 border-gray-700 text-white placeholder:text-gray-400" />
+
                       </CardContent>
                     </Card>
                   </div>
@@ -521,19 +521,19 @@ const EnhancedStudioPage = () => {
                         </div>
                         
                         <div className="grid grid-cols-2 gap-2">
-                          {availableEffects.map((effect) => (
-                            <button
-                              key={effect}
-                              onClick={() => toggleEffect(effect)}
-                              className={`p-2 rounded text-sm transition-all ${
-                                effects.includes(effect)
-                                  ? 'bg-green-500/20 border border-green-500 text-green-400'
-                                  : 'bg-gray-800 border border-gray-700 text-gray-400 hover:border-gray-600'
-                              }`}
-                            >
+                          {availableEffects.map((effect) =>
+                          <button
+                            key={effect}
+                            onClick={() => toggleEffect(effect)}
+                            className={`p-2 rounded text-sm transition-all ${
+                            effects.includes(effect) ?
+                            'bg-green-500/20 border border-green-500 text-green-400' :
+                            'bg-gray-800 border border-gray-700 text-gray-400 hover:border-gray-600'}`
+                            }>
+
                               {effect}
                             </button>
-                          ))}
+                          )}
                         </div>
                       </CardContent>
                     </Card>
@@ -554,14 +554,14 @@ const EnhancedStudioPage = () => {
                                 <SelectValue />
                               </SelectTrigger>
                               <SelectContent className="bg-gray-800 border-gray-700">
-                                {mixingStyles.map((style) => (
-                                  <SelectItem key={style.value} value={style.value} className="text-white">
+                                {mixingStyles.map((style) =>
+                                <SelectItem key={style.value} value={style.value} className="text-white">
                                     <div>
                                       <div>{style.label}</div>
                                       <div className="text-xs text-gray-400">{style.description}</div>
                                     </div>
                                   </SelectItem>
-                                ))}
+                                )}
                               </SelectContent>
                             </Select>
                           </div>
@@ -573,11 +573,11 @@ const EnhancedStudioPage = () => {
                                 <SelectValue />
                               </SelectTrigger>
                               <SelectContent className="bg-gray-800 border-gray-700">
-                                {arrangementStyles.map((style) => (
-                                  <SelectItem key={style.value} value={style.value} className="text-white">
+                                {arrangementStyles.map((style) =>
+                                <SelectItem key={style.value} value={style.value} className="text-white">
                                     {style.label}
                                   </SelectItem>
-                                ))}
+                                )}
                               </SelectContent>
                             </Select>
                           </div>
@@ -591,40 +591,40 @@ const EnhancedStudioPage = () => {
                         <Button
                           onClick={handleGenerate}
                           disabled={isLoading || !selectedFile || !genre}
-                          className="w-full bg-gradient-to-r from-green-500 to-cyan-500 hover:from-green-600 hover:to-cyan-600 text-black font-semibold text-lg py-6 shadow-lg shadow-green-500/25 hover:shadow-green-500/40 transition-all duration-300"
-                        >
-                          {isLoading ? (
-                            <>
+                          className="w-full bg-gradient-to-r from-green-500 to-cyan-500 hover:from-green-600 hover:to-cyan-600 text-black font-semibold text-lg py-6 shadow-lg shadow-green-500/25 hover:shadow-green-500/40 transition-all duration-300">
+
+                          {isLoading ?
+                          <>
                               <Loader2 className="w-5 h-5 mr-2 animate-spin" />
                               Generating {variations[0]} Variations...
-                            </>
-                          ) : (
-                            <>
+                            </> :
+
+                          <>
                               <Shuffle className="w-5 h-5 mr-2" />
                               Generate {variations[0]} EDM Variations
                             </>
-                          )}
+                          }
                         </Button>
 
-                        {isLoading && (
-                          <div className="mt-4">
+                        {isLoading &&
+                        <div className="mt-4">
                             <ProgressBar isLoading={isLoading} />
                             <p className="text-green-400 mt-2 text-center text-sm">
                               Creating multiple unique arrangements and effect chains...
                             </p>
                           </div>
-                        )}
+                        }
                       </CardContent>
                     </Card>
 
                     {/* Current Analysis */}
-                    {currentAnalysis && (
-                      <AudioAnalysisDisplay
-                        frequencyData={currentAnalysis.frequencyData}
-                        metadata={currentAnalysis.metadata}
-                        isAnalyzing={isLoading}
-                      />
-                    )}
+                    {currentAnalysis &&
+                    <AudioAnalysisDisplay
+                      frequencyData={currentAnalysis.frequencyData}
+                      metadata={currentAnalysis.metadata}
+                      isAnalyzing={isLoading} />
+
+                    }
                   </div>
                 </div>
               </TabsContent>
@@ -635,8 +635,8 @@ const EnhancedStudioPage = () => {
                   onLoadPreset={handleLoadPreset}
                   onSavePreset={(preset) => {
                     toast.success(`Preset "${preset.name}" saved!`);
-                  }}
-                />
+                  }} />
+
               </TabsContent>
 
               <TabsContent value="variations">
@@ -646,15 +646,15 @@ const EnhancedStudioPage = () => {
                   onRegenerateVariation={handleRegenerateVariation}
                   onSaveVariation={handleSaveVariation}
                   onRateVariation={handleRateVariation}
-                  onToggleFavorite={handleToggleFavorite}
-                />
+                  onToggleFavorite={handleToggleFavorite} />
+
               </TabsContent>
             </Tabs>
           </motion.div>
         </div>
       </div>
-    </div>
-  );
+    </div>);
+
 };
 
 export default EnhancedStudioPage;

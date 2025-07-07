@@ -4,19 +4,19 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Play, 
-  Pause, 
-  Download, 
-  Shuffle, 
-  Copy, 
+import {
+  Play,
+  Pause,
+  Download,
+  Shuffle,
+  Copy,
   Heart,
   BarChart3,
   Music,
   Zap,
   TrendingUp,
-  Star
-} from 'lucide-react';
+  Star } from
+'lucide-react';
 import RealAudioPlayer from '@/components/RealAudioPlayer';
 import AudioAnalysisDisplay from '@/components/AudioAnalysisDisplay';
 import { toast } from 'sonner';
@@ -99,7 +99,7 @@ const TrackVariationsManager = ({
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
-      
+
       toast.success(`Variation ${variation.variationNumber} downloaded!`);
       onSaveVariation?.(variation);
     } catch (error) {
@@ -116,9 +116,9 @@ const TrackVariationsManager = ({
   const handleToggleFavorite = (variation: TrackVariation) => {
     onToggleFavorite?.(variation.id);
     toast.success(
-      variation.isFavorite 
-        ? `Removed variation ${variation.variationNumber} from favorites`
-        : `Added variation ${variation.variationNumber} to favorites`
+      variation.isFavorite ?
+      `Removed variation ${variation.variationNumber} from favorites` :
+      `Added variation ${variation.variationNumber} to favorites`
     );
   };
 
@@ -128,8 +128,8 @@ const TrackVariationsManager = ({
         return (b.rating || 0) - (a.rating || 0);
       case 'complexity':
         const complexityOrder = { simple: 1, medium: 2, complex: 3, experimental: 4 };
-        return complexityOrder[b.metadata.complexity as keyof typeof complexityOrder] - 
-               complexityOrder[a.metadata.complexity as keyof typeof complexityOrder];
+        return complexityOrder[b.metadata.complexity as keyof typeof complexityOrder] -
+        complexityOrder[a.metadata.complexity as keyof typeof complexityOrder];
       default:
         return a.variationNumber - b.variationNumber;
     }
@@ -137,11 +137,11 @@ const TrackVariationsManager = ({
 
   const getComplexityColor = (complexity: string) => {
     switch (complexity) {
-      case 'simple': return 'border-blue-500 text-blue-400';
-      case 'medium': return 'border-green-500 text-green-400';
-      case 'complex': return 'border-orange-500 text-orange-400';
-      case 'experimental': return 'border-red-500 text-red-400';
-      default: return 'border-gray-500 text-gray-400';
+      case 'simple':return 'border-blue-500 text-blue-400';
+      case 'medium':return 'border-green-500 text-green-400';
+      case 'complex':return 'border-orange-500 text-orange-400';
+      case 'experimental':return 'border-red-500 text-red-400';
+      default:return 'border-gray-500 text-gray-400';
     }
   };
 
@@ -168,8 +168,8 @@ const TrackVariationsManager = ({
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as any)}
-              className="bg-gray-800 border border-gray-700 text-white text-sm rounded px-3 py-1"
-            >
+              className="bg-gray-800 border border-gray-700 text-white text-sm rounded px-3 py-1">
+
               <option value="number">Sort by Number</option>
               <option value="rating">Sort by Rating</option>
               <option value="complexity">Sort by Complexity</option>
@@ -177,32 +177,32 @@ const TrackVariationsManager = ({
           </div>
         </div>
 
-        {isGenerating && (
-          <div className="text-center py-8 mb-6">
+        {isGenerating &&
+        <div className="text-center py-8 mb-6">
             <motion.div
-              className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4"
-              animate={{ rotate: 360 }}
-              transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-            >
+            className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-4"
+            animate={{ rotate: 360 }}
+            transition={{ duration: 2, repeat: Infinity, ease: "linear" }}>
+
               <Zap className="w-8 h-8 text-green-400" />
             </motion.div>
             <p className="text-green-400 font-semibold">Generating Multiple Variations...</p>
             <p className="text-gray-400 text-sm mt-1">Creating unique EDM tracks with different arrangements</p>
           </div>
-        )}
+        }
 
-        {variations.length === 0 && !isGenerating && (
-          <div className="text-center py-12">
+        {variations.length === 0 && !isGenerating &&
+        <div className="text-center py-12">
             <div className="w-16 h-16 bg-gray-800 rounded-full flex items-center justify-center mx-auto mb-4">
               <Music className="w-8 h-8 text-gray-600" />
             </div>
             <p className="text-gray-400">No variations generated yet</p>
             <p className="text-gray-500 text-sm mt-2">Generate multiple variations to compare different arrangements</p>
           </div>
-        )}
+        }
 
-        {variations.length > 0 && (
-          <Tabs defaultValue="grid" className="w-full">
+        {variations.length > 0 &&
+        <Tabs defaultValue="grid" className="w-full">
             <TabsList className="grid w-full grid-cols-2 bg-gray-800">
               <TabsTrigger value="grid" className="data-[state=active]:bg-green-500/20">
                 Grid View
@@ -215,45 +215,45 @@ const TrackVariationsManager = ({
             <TabsContent value="grid" className="mt-6">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 <AnimatePresence>
-                  {sortedVariations.map((variation, index) => (
-                    <motion.div
-                      key={variation.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.1 }}
-                      className={`bg-gray-800 rounded-lg p-4 border-2 transition-all cursor-pointer hover:border-green-500/50 ${
-                        selectedVariation?.id === variation.id 
-                          ? 'border-green-500' 
-                          : 'border-gray-700'
-                      }`}
-                      onClick={() => handleVariationSelect(variation)}
-                    >
+                  {sortedVariations.map((variation, index) =>
+                <motion.div
+                  key={variation.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  className={`bg-gray-800 rounded-lg p-4 border-2 transition-all cursor-pointer hover:border-green-500/50 ${
+                  selectedVariation?.id === variation.id ?
+                  'border-green-500' :
+                  'border-gray-700'}`
+                  }
+                  onClick={() => handleVariationSelect(variation)}>
+
                       <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center gap-2">
                           <span className="text-lg font-bold text-white">
                             V{variation.variationNumber}
                           </span>
-                          <Badge 
-                            variant="outline" 
-                            className={getComplexityColor(variation.metadata.complexity)}
-                          >
+                          <Badge
+                        variant="outline"
+                        className={getComplexityColor(variation.metadata.complexity)}>
+
                             {variation.metadata.complexity}
                           </Badge>
                         </div>
                         
                         <div className="flex items-center gap-1">
                           <Button
-                            size="sm"
-                            variant="ghost"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleToggleFavorite(variation);
-                            }}
-                            className={`h-8 w-8 p-0 ${variation.isFavorite ? 'text-red-400' : 'text-gray-400'}`}
-                          >
-                            <Heart 
-                              className={`w-4 h-4 ${variation.isFavorite ? 'fill-current' : ''}`} 
-                            />
+                        size="sm"
+                        variant="ghost"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleToggleFavorite(variation);
+                        }}
+                        className={`h-8 w-8 p-0 ${variation.isFavorite ? 'text-red-400' : 'text-gray-400'}`}>
+
+                            <Heart
+                          className={`w-4 h-4 ${variation.isFavorite ? 'fill-current' : ''}`} />
+
                           </Button>
                         </div>
                       </div>
@@ -296,75 +296,75 @@ const TrackVariationsManager = ({
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-1">
                           <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handlePlayVariation(variation.id);
-                            }}
-                            className="border-green-500 text-green-400 hover:bg-green-500/20"
-                          >
-                            {playingVariation === variation.id ? (
-                              <Pause className="w-3 h-3" />
-                            ) : (
-                              <Play className="w-3 h-3" />
-                            )}
+                        size="sm"
+                        variant="outline"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handlePlayVariation(variation.id);
+                        }}
+                        className="border-green-500 text-green-400 hover:bg-green-500/20">
+
+                            {playingVariation === variation.id ?
+                        <Pause className="w-3 h-3" /> :
+
+                        <Play className="w-3 h-3" />
+                        }
                           </Button>
                           
                           <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleDownloadVariation(variation);
-                            }}
-                            className="border-cyan-500 text-cyan-400 hover:bg-cyan-500/20"
-                          >
+                        size="sm"
+                        variant="outline"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDownloadVariation(variation);
+                        }}
+                        className="border-cyan-500 text-cyan-400 hover:bg-cyan-500/20">
+
                             <Download className="w-3 h-3" />
                           </Button>
                         </div>
 
                         {/* Rating stars */}
                         <div className="flex items-center gap-1">
-                          {[1, 2, 3, 4, 5].map((star) => (
-                            <button
-                              key={star}
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                handleRating(variation, star);
-                              }}
-                              className={`w-3 h-3 ${
-                                star <= (variation.rating || 0)
-                                  ? 'text-yellow-400'
-                                  : 'text-gray-600'
-                              }`}
-                            >
-                              <Star 
-                                className={`w-3 h-3 ${
-                                  star <= (variation.rating || 0) ? 'fill-current' : ''
-                                }`} 
-                              />
+                          {[1, 2, 3, 4, 5].map((star) =>
+                      <button
+                        key={star}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleRating(variation, star);
+                        }}
+                        className={`w-3 h-3 ${
+                        star <= (variation.rating || 0) ?
+                        'text-yellow-400' :
+                        'text-gray-600'}`
+                        }>
+
+                              <Star
+                          className={`w-3 h-3 ${
+                          star <= (variation.rating || 0) ? 'fill-current' : ''}`
+                          } />
+
                             </button>
-                          ))}
+                      )}
                         </div>
                       </div>
                     </motion.div>
-                  ))}
+                )}
                 </AnimatePresence>
               </div>
             </TabsContent>
 
             <TabsContent value="detailed" className="mt-6">
-              {selectedVariation && (
-                <div className="grid lg:grid-cols-2 gap-6">
+              {selectedVariation &&
+            <div className="grid lg:grid-cols-2 gap-6">
                   {/* Audio Player */}
                   <div>
                     <RealAudioPlayer
-                      audioBlob={selectedVariation.audioBlob}
-                      title={`${selectedVariation.title} - Variation ${selectedVariation.variationNumber}`}
-                      metadata={selectedVariation.metadata}
-                      onDownload={() => handleDownloadVariation(selectedVariation)}
-                    />
+                  audioBlob={selectedVariation.audioBlob}
+                  title={`${selectedVariation.title} - Variation ${selectedVariation.variationNumber}`}
+                  metadata={selectedVariation.metadata}
+                  onDownload={() => handleDownloadVariation(selectedVariation)} />
+
                     
                     {/* Variation Controls */}
                     <Card className="bg-gray-800 border-gray-700 mt-4">
@@ -373,32 +373,32 @@ const TrackVariationsManager = ({
                           <h4 className="text-md font-medium text-white">Variation Controls</h4>
                           <div className="flex items-center gap-2">
                             <Button
-                              size="sm"
-                              variant="outline"
-                              onClick={() => handleToggleFavorite(selectedVariation)}
-                              className={`border-red-500 ${
-                                selectedVariation.isFavorite 
-                                  ? 'bg-red-500/20 text-red-400' 
-                                  : 'text-red-400 hover:bg-red-500/20'
-                              }`}
-                            >
-                              <Heart 
-                                className={`w-4 h-4 mr-1 ${selectedVariation.isFavorite ? 'fill-current' : ''}`} 
-                              />
+                          size="sm"
+                          variant="outline"
+                          onClick={() => handleToggleFavorite(selectedVariation)}
+                          className={`border-red-500 ${
+                          selectedVariation.isFavorite ?
+                          'bg-red-500/20 text-red-400' :
+                          'text-red-400 hover:bg-red-500/20'}`
+                          }>
+
+                              <Heart
+                            className={`w-4 h-4 mr-1 ${selectedVariation.isFavorite ? 'fill-current' : ''}`} />
+
                               {selectedVariation.isFavorite ? 'Favorited' : 'Favorite'}
                             </Button>
                             
-                            {onRegenerateVariation && (
-                              <Button
-                                size="sm"
-                                variant="outline"
-                                onClick={() => onRegenerateVariation(selectedVariation.variationNumber)}
-                                className="border-blue-500 text-blue-400 hover:bg-blue-500/20"
-                              >
+                            {onRegenerateVariation &&
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => onRegenerateVariation(selectedVariation.variationNumber)}
+                          className="border-blue-500 text-blue-400 hover:bg-blue-500/20">
+
                                 <Shuffle className="w-4 h-4 mr-1" />
                                 Regenerate
                               </Button>
-                            )}
+                        }
                           </div>
                         </div>
 
@@ -406,23 +406,23 @@ const TrackVariationsManager = ({
                         <div className="flex items-center justify-between">
                           <span className="text-sm text-gray-400">Rate this variation:</span>
                           <div className="flex items-center gap-1">
-                            {[1, 2, 3, 4, 5].map((star) => (
-                              <button
-                                key={star}
-                                onClick={() => handleRating(selectedVariation, star)}
-                                className={`w-5 h-5 transition-colors ${
-                                  star <= (selectedVariation.rating || 0)
-                                    ? 'text-yellow-400'
-                                    : 'text-gray-600 hover:text-yellow-300'
-                                }`}
-                              >
-                                <Star 
-                                  className={`w-5 h-5 ${
-                                    star <= (selectedVariation.rating || 0) ? 'fill-current' : ''
-                                  }`} 
-                                />
+                            {[1, 2, 3, 4, 5].map((star) =>
+                        <button
+                          key={star}
+                          onClick={() => handleRating(selectedVariation, star)}
+                          className={`w-5 h-5 transition-colors ${
+                          star <= (selectedVariation.rating || 0) ?
+                          'text-yellow-400' :
+                          'text-gray-600 hover:text-yellow-300'}`
+                          }>
+
+                                <Star
+                            className={`w-5 h-5 ${
+                            star <= (selectedVariation.rating || 0) ? 'fill-current' : ''}`
+                            } />
+
                               </button>
-                            ))}
+                        )}
                           </div>
                         </div>
                       </CardContent>
@@ -432,9 +432,9 @@ const TrackVariationsManager = ({
                   {/* Audio Analysis */}
                   <div>
                     <AudioAnalysisDisplay
-                      frequencyData={selectedVariation.metadata.frequencyAnalysis}
-                      metadata={selectedVariation.metadata}
-                    />
+                  frequencyData={selectedVariation.metadata.frequencyAnalysis}
+                  metadata={selectedVariation.metadata} />
+
                     
                     {/* Arrangement & Effects */}
                     <Card className="bg-gray-800 border-gray-700 mt-4">
@@ -445,30 +445,30 @@ const TrackVariationsManager = ({
                           <div>
                             <div className="text-sm text-gray-400 mb-1">Arrangement:</div>
                             <div className="flex flex-wrap gap-1">
-                              {selectedVariation.metadata.arrangement.map((section, index) => (
-                                <Badge 
-                                  key={index}
-                                  variant="outline" 
-                                  className="border-purple-500 text-purple-400 text-xs"
-                                >
+                              {selectedVariation.metadata.arrangement.map((section, index) =>
+                          <Badge
+                            key={index}
+                            variant="outline"
+                            className="border-purple-500 text-purple-400 text-xs">
+
                                   {section}
                                 </Badge>
-                              ))}
+                          )}
                             </div>
                           </div>
                           
                           <div>
                             <div className="text-sm text-gray-400 mb-1">Effects Chain:</div>
                             <div className="flex flex-wrap gap-1">
-                              {selectedVariation.metadata.effectsChain.map((effect, index) => (
-                                <Badge 
-                                  key={index}
-                                  variant="outline" 
-                                  className="border-cyan-500 text-cyan-400 text-xs"
-                                >
+                              {selectedVariation.metadata.effectsChain.map((effect, index) =>
+                          <Badge
+                            key={index}
+                            variant="outline"
+                            className="border-cyan-500 text-cyan-400 text-xs">
+
                                   {effect}
                                 </Badge>
-                              ))}
+                          )}
                             </div>
                           </div>
                           
@@ -483,13 +483,13 @@ const TrackVariationsManager = ({
                     </Card>
                   </div>
                 </div>
-              )}
+            }
             </TabsContent>
           </Tabs>
-        )}
+        }
       </CardContent>
-    </Card>
-  );
+    </Card>);
+
 };
 
 export default TrackVariationsManager;

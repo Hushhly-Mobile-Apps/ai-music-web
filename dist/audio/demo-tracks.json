@@ -1,0 +1,31 @@
+{
+  "sampleTracks": [
+    {
+      "id": 1,
+      "title": "Progressive House Demo",
+      "genre": "Progressive House",
+      "bpm": 128,
+      "key": "A minor",
+      "duration": 30,
+      "description": "Uplifting progressive house with driving bassline"
+    },
+    {
+      "id": 2,
+      "title": "Future Bass Demo",
+      "genre": "Future Bass",
+      "bpm": 150,
+      "key": "C major",
+      "duration": 30,
+      "description": "Melodic future bass with emotional drops"
+    },
+    {
+      "id": 3,
+      "title": "Dubstep Demo",
+      "genre": "Dubstep",
+      "bpm": 140,
+      "key": "E minor",
+      "duration": 30,
+      "description": "Heavy dubstep with aggressive wobbles"
+    }
+  ]
+}

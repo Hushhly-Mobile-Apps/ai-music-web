@@ -9,7 +9,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Save,
-  Load,
   Star,
   Heart,
   Share2,
@@ -20,8 +19,8 @@ import {
   Settings,
   Users,
   TrendingUp,
-  Clock } from
-'lucide-react';
+  Clock
+} from 'lucide-react';
 import { toast } from 'sonner';
 
 interface EDMPreset {
@@ -605,7 +604,7 @@ const EDMPresetManager = ({
                   onClick={() => handleLoadPreset(preset)}
                   className="flex-1 bg-green-500 hover:bg-green-600 text-black">
 
-                      <Load className="w-3 h-3 mr-1" />
+                      <Save className="w-3 h-3 mr-1" />
                       Load
                     </Button>
                     

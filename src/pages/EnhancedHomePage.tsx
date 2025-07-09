@@ -6,7 +6,6 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { 
   Music, 
-  Waveform, 
   Play, 
   Pause, 
   Heart, 
@@ -261,7 +260,7 @@ const EnhancedHomePage: React.FC = () => {
                   </p>
                 </div>
                 <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-600 rounded-full flex items-center justify-center group-hover:rotate-12 transition-transform duration-300">
-                  <Waveform className="w-8 h-8 text-white" />
+                  <Music className="w-8 h-8 text-white" />
                 </div>
               </div>
               <Button 

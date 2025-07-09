@@ -7,7 +7,6 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { 
-  Waveform, 
   Play, 
   Pause, 
   Download, 
@@ -259,7 +258,7 @@ const TextToRemixPage: React.FC = () => {
         >
           <div className="flex items-center justify-center mb-6">
             <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-600 rounded-full flex items-center justify-center">
-              <Waveform className="w-8 h-8 text-white" />
+              <Play className="w-8 h-8 text-white" />
             </div>
           </div>
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
@@ -407,11 +406,7 @@ const TextToRemixPage: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             className="max-w-4xl mx-auto mb-8"
           >
-            <ProgressBar
-              progress={progress}
-              label="Generating unique EDM variations..."
-              showWaveform={true}
-            />
+            <ProgressBar isLoading={true} />
           </motion.div>
         )}
 

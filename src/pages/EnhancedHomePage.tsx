@@ -23,6 +23,7 @@ import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
 import Navigation from '@/components/Navigation';
 import EDMVariationService from '@/services/EDMVariationService';
+import HomeAudioPlayer from '@/components/HomeAudioPlayer';
 
 interface RemixCard {
   id: number;
@@ -316,20 +317,14 @@ const EnhancedHomePage: React.FC = () => {
                     >
                       <div className="absolute inset-0 bg-black/40"></div>
                       <div className="relative flex items-center gap-4">
-                        <Button
-                          size="icon"
-                          onClick={() => handlePlayPause(remix.id)}
-                          className={`w-12 h-12 rounded-full ${
-                            playingTrack === remix.id
-                              ? 'bg-cyan-500 hover:bg-cyan-600'
-                              : 'bg-white/20 hover:bg-white/30'
-                          }`}
-                        >
-                          {playingTrack === remix.id ? 
-                            <Pause className="w-6 h-6" /> : 
-                            <Play className="w-6 h-6" />
-                          }
-                        </Button>
+                        <HomeAudioPlayer
+                          remix={remix}
+                          isPlaying={playingTrack === remix.id}
+                          onPlayPause={handlePlayPause}
+                          onLike={handleLike}
+                          onShare={handleShare}
+                          isLiked={likedTracks.has(remix.id)}
+                        />
                       </div>
                       
                       {/* Top-right actions */}
@@ -428,20 +423,14 @@ const EnhancedHomePage: React.FC = () => {
                     >
                       <div className="absolute inset-0 bg-black/40"></div>
                       <div className="relative flex items-center gap-4">
-                        <Button
-                          size="icon"
-                          onClick={() => handlePlayPause(remix.id + 100)}
-                          className={`w-12 h-12 rounded-full ${
-                            playingTrack === remix.id + 100
-                              ? 'bg-cyan-500 hover:bg-cyan-600'
-                              : 'bg-white/20 hover:bg-white/30'
-                          }`}
-                        >
-                          {playingTrack === remix.id + 100 ? 
-                            <Pause className="w-6 h-6" /> : 
-                            <Play className="w-6 h-6" />
-                          }
-                        </Button>
+                        <HomeAudioPlayer
+                          remix={{...remix, id: remix.id + 100}}
+                          isPlaying={playingTrack === remix.id + 100}
+                          onPlayPause={handlePlayPause}
+                          onLike={handleLike}
+                          onShare={handleShare}
+                          isLiked={likedTracks.has(remix.id + 100)}
+                        />
                       </div>
                       
                       <div className="absolute top-3 right-3 flex gap-2">

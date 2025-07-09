@@ -162,6 +162,7 @@ const ULTRA_EDM_LIBRARY = {
 export class EnhancedAudioGenerationService {
   private synths: {[key: string]: any;} = {};
   private drums: {[key: string]: Tone.MembraneSynth;} = {};
+  private noises: {[key: string]: Tone.Noise;} = {};
   private effects: {[key: string]: any;} = {};
   private isInitialized = false;
   private currentSeed = 0;
@@ -214,12 +215,10 @@ export class EnhancedAudioGenerationService {
       envelope: { attack: 0.001, decay: 0.1, sustain: 0.01, release: 0.2 }
     });
 
-    this.drums.snareRim = new Tone.MembraneSynth({
-      pitchDecay: 0.005,
-      octaves: 1,
-      oscillator: { type: 'noise' },
-      envelope: { attack: 0.001, decay: 0.05, sustain: 0.01, release: 0.1 }
-    });
+    // Implementasi snare rim pakai noise
+    this.noises.snareRim = new Tone.Noise('white');
+    this.noises.snareRim.volume.value = -10; // biar ga terlalu keras
+    this.noises.snareRim.toDestination();
 
     // Hi-hat variations
     this.drums.hihatOpen = new Tone.MembraneSynth({
@@ -250,7 +249,7 @@ export class EnhancedAudioGenerationService {
 
   private initializeAdvancedEffects() {
     // Basic effects
-    this.effects.reverb = new Tone.Reverb({ roomSize: 0.7, dampening: 3000 });
+    this.effects.reverb = new Tone.Reverb(2); // decay 2 detik
     this.effects.delay = new Tone.PingPongDelay({ delayTime: 0.25, feedback: 0.3 });
     this.effects.chorus = new Tone.Chorus({ frequency: 4, delayTime: 2.5, depth: 0.5 });
     this.effects.distortion = new Tone.Distortion(0.8);
@@ -984,6 +983,7 @@ export class EnhancedAudioGenerationService {
       synthConfig.filter.dispose();
     });
     Object.values(this.drums).forEach((drum) => drum.dispose());
+    Object.values(this.noises).forEach((noise) => noise.dispose());
     Object.values(this.effects).forEach((effect) => effect.dispose());
     Tone.Transport.cancel();
     Tone.Transport.stop();
